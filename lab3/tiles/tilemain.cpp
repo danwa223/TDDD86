@@ -7,13 +7,7 @@
 
 #include <QApplication>
 #include "mainwindow.h"
-
-class TileList {
-	//declarations
-
-public:
-	//functions 'n shit
-}
+#include <string>
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
