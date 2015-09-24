@@ -12,17 +12,23 @@
 
 class TileList {
 public:
-    TileList();
-    ~TileList();
+	TileList();   //constructor
+	~TileList();  //destructor
+
+	//public functions
     void addTile(Tile tile);
-    void drawAll(QGraphicsScene* scene);
-    int indexOfTopTile(int x, int y);
-    void lower(int x, int y);
-    void raise(int x, int y);
-    void remove(int x, int y);
-    void removeAll(int x, int y);
+	void drawAll(QGraphicsScene* scene);
+	int indexOfTopTile(int x, int y);  //value of the last (also last drawn) tile
+	void lower(int x, int y);          //move tile to the begining of the list
+	void raise(int x, int y);          //move tile to the end of the list
+	void remove(int x, int y);         //remove tile
+	void removeAll(int x, int y);      //remove all tiles
 
 private:
+	int allocSize, currentSize;
+
+	Tile tileArray[];
+
 
 };
 
