@@ -28,7 +28,7 @@ private:
 	int allocSize, currentSize;
 
 	Tile tileArray[];
-
+    Tile tempTileArray[];
 
 };
 

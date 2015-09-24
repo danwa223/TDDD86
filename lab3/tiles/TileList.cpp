@@ -12,24 +12,43 @@ TileList::TileList(){
 	currentSize = 0;
 	allocSize = 10;
 
-	Tile *tileArray = new Tile[allocSize];
+    Tile *tileArray = new Tile[allocSize];
+    Tile *tempTileArray = new Tile[allocSize*2];
 }
 
 TileList::~TileList(){
-	cout << "Tile list is being destroyed";
+    //Labb 3 FAQ säger att destruktorn kallas på "automatiskt" ??? https://www.ida.liu.se/~TDDD86/info/lab3-faq.shtml
+    cout << "Tile list is being destroyed" << endl;
 
 	delete[] tileArray;
 }
 
 void TileList::addTile(Tile tile){
 
-	Tile[currentSize] = tile;
-	currentSize++;   //increment size after adding element since arrays are 0-indexed
+    if (currentSize == allocSize){ //reached array limit but still want to add more
+        allocSize = allocSize*2;
+        for (int i = 0; i < currentSize; ++i){
+            //copy entire old array into temp, O(n)
+            tempTileArray[i] = tileArray[i];
+        }
+        //increment size after adding element since arrays are 0-indexed
+        tempTileArray[currentSize] = tile;
+        currentSize++;
+        //delete[] tileArray; //see comment in destructor, is this line needed?
+        tileArray = tempTileArray; //ERROR HERE: invalid array assignment
+        //could be an issue with deep copy, see slides from FÖ 8. See slides from FÖ7 on how to dynamically change array aswell
+        //delete[] tempTileArray; //see comment in destructor, is this line needed?
+    }
+    else{
+        tileArray[currentSize] = tile;
+        currentSize++;
+    }
 }
 
 void TileList::drawAll(QGraphicsScene* scene){
 	for (int i = 0; i < currentSize; ++i){
-		Tile[i].draw(scene);
+        tileArray[i].draw(scene); //was Tile[i].draw before???, seems more logical that you want to draw a tile from the tileArray.
+        //also gave compiling errors before
 	}
 }
 
