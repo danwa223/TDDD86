@@ -55,7 +55,7 @@ void TileList::drawAll(QGraphicsScene* scene){
 int TileList::indexOfTopTile(int x, int y){
 
 	//iterate backwards over the tileList and return the first tile matching the given coordinates
-	for (int i = currentSize; i >= 0; --i){
+	for (int i = currentSize - 1; i >= 0; --i){
 		if (tileArray[i].contains(x,y)) return i;
 	}
 
@@ -88,12 +88,14 @@ void TileList::lower(int x, int y){
 	Tile tile = tileArray[index];
 
 	//preemptively allocate more memory (only) in case we'll need it later
-	if ((currentSize + 1) == allocSize){
+	/*if ((currentSize + 1) == allocSize){
 		allocate();
-	}
+	}*/
+
+	removeTile(index);
 
 	//shift the array and put tile in the first spot
-	for (int i = currentSize; i > 0; --i){
+	for (int i = currentSize - 2; i >= 0; --i){
 		tileArray[i +1] = tileArray[i];
 	}
 	tileArray[0] = tile;
@@ -109,11 +111,14 @@ void TileList::removeAll(int x, int y){
     // TODO: write this member
 }
 
-void TileList::removeTile(int index) {
+void TileList::removeTile(int index){
 
-	for (int i = index; i < currentSize; i++){
-		tileArray[i] = tileArray[i + 1];
+	//if index == currentSize we just decrement currentSize as that remove the last element in practice
+	if (!(index == currentSize -1)){
+		for (int i = index; i < currentSize; ++i){
+			tileArray[i] = tileArray[i + 1];
+		}
+
 	}
-
 	currentSize--;
 }
