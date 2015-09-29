@@ -73,10 +73,6 @@ void TileList::raise(int x, int y){
 
 	Tile tile = tileArray[index];
 
-	for (int i = index; i < currentSize; i++){
-		tileArray[i] = tileArray[i + 1];
-	}
-
 	removeTile(index);
 	addTile(tile);
 }
@@ -88,6 +84,8 @@ void TileList::lower(int x, int y){
 
 	//there was no tile
 	if (index == -1) return;
+
+	Tile tile = tileArray[index];
 }
 
 void TileList::remove(int x, int y){
