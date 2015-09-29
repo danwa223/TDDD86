@@ -40,7 +40,7 @@ void TileList::allocate(){
     allocSize = tempAllocSize;
 }
 
-void TileList::drawAll(QGraphicsScene* scene){
+void TileList::drawAll(QGraphicsScene* scene) const{
 
 	for (int i = 0; i < currentSize; ++i){
         tileArray[i].draw(scene); //was Tile[i].draw before???, seems more logical that you want to draw a tile from the tileArray.
@@ -48,7 +48,7 @@ void TileList::drawAll(QGraphicsScene* scene){
 	}
 }
 
-int TileList::indexOfTopTile(int x, int y){
+int TileList::indexOfTopTile(int x, int y) const{
 
 	//iterate backwards over the tileList and return the first tile matching the given coordinates
 	for (int i = currentSize - 1; i >= 0; --i){
