@@ -18,14 +18,17 @@ public:
 	//public functions
     void addTile(Tile tile);
 	void drawAll(QGraphicsScene* scene);
-	void allocate();
-	int indexOfTopTile(int x, int y);  //value of the last (also last drawn) tile
+	int indexOfTopTile(int x, int y);  //return value of the last (also last drawn) tile
 	void lower(int x, int y);          //move tile to the begining of the list
 	void raise(int x, int y);          //move tile to the end of the list
 	void remove(int x, int y);         //remove tile
 	void removeAll(int x, int y);      //remove all tiles
 
 private:
+	//private functions
+	void allocate();                   //allocate more memory for the dynamic array
+	void removeTile(int index);        //remove a specific tile in an array
+
 	int allocSize, currentSize;
 
 	Tile *tileArray = new Tile[allocSize];
