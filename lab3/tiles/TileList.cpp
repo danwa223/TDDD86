@@ -86,6 +86,17 @@ void TileList::lower(int x, int y){
 	if (index == -1) return;
 
 	Tile tile = tileArray[index];
+
+	//preemptively allocate more memory (only) in case we'll need it later
+	if ((currentSize + 1) == allocSize){
+		allocate();
+	}
+
+	//shift the array and put tile in the first spot
+	for (int i = currentSize; i > 0; --i){
+		tileArray[i +1] = tileArray[i];
+	}
+	tileArray[0] = tile;
 }
 
 void TileList::remove(int x, int y){
