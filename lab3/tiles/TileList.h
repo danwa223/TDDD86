@@ -25,7 +25,7 @@ public:
 	void removeAll(int x, int y);      //remove all tiles
 
 private:
-	int allocSize, currentSize;
+    int allocSize = 10, currentSize = 0;
 
 	Tile tileArray[];
     Tile tempTileArray[];

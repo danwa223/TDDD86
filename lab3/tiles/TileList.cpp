@@ -9,9 +9,6 @@
 TileList::TileList(){
 	cout << "Tile list is being created";
 
-	currentSize = 0;
-	allocSize = 10;
-
     Tile *tileArray = new Tile[allocSize];
     Tile *tempTileArray = new Tile[allocSize*2];
 }
@@ -35,7 +32,10 @@ void TileList::addTile(Tile tile){
         tempTileArray[currentSize] = tile;
         currentSize++;
         //delete[] tileArray; //see comment in destructor, is this line needed?
-        tileArray = tempTileArray; //ERROR HERE: invalid array assignment
+        TileList();
+        for (int i = 0; i < currentSize; ++i){
+            tileArray[i] = tempTileArray[i]; //ERROR HERE: invalid array
+        }
         //could be an issue with deep copy, see slides from FÖ 8. See slides from FÖ7 on how to dynamically change array aswell
         //delete[] tempTileArray; //see comment in destructor, is this line needed?
     }
