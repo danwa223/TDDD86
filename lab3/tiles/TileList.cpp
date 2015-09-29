@@ -7,8 +7,7 @@
 #include "TileList.h"
 
 TileList::TileList(){
-	cout << "Tile list is being created";
-
+    cout << "Tile list is being created";
     Tile *tileArray = new Tile[allocSize];
     Tile *tempTileArray = new Tile[allocSize*2];
 }
@@ -23,7 +22,6 @@ TileList::~TileList(){
 void TileList::addTile(Tile tile){
 
     if (currentSize == allocSize){ //reached array limit but still want to add more
-        allocSize = allocSize*2;
         for (int i = 0; i < currentSize; ++i){
             //copy entire old array into temp, O(n)
             tempTileArray[i] = tileArray[i];
@@ -31,12 +29,9 @@ void TileList::addTile(Tile tile){
         //increment size after adding element since arrays are 0-indexed
         tempTileArray[currentSize] = tile;
         currentSize++;
-        //delete[] tileArray; //see comment in destructor, is this line needed?
-        TileList();
-        for (int i = 0; i < currentSize; ++i){
-            tileArray[i] = tempTileArray[i]; //ERROR HERE: invalid array
-        }
-        //could be an issue with deep copy, see slides from FÖ 8. See slides from FÖ7 on how to dynamically change array aswell
+        delete[] tileArray; //see comment in destructor, is this line needed?
+        tileArray = tempTileArray;
+        allocSize = allocSize*2;
         //delete[] tempTileArray; //see comment in destructor, is this line needed?
     }
     else{
