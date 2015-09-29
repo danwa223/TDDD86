@@ -18,6 +18,7 @@ public:
 	//public functions
     void addTile(Tile tile);
 	void drawAll(QGraphicsScene* scene);
+	void allocate();
 	int indexOfTopTile(int x, int y);  //value of the last (also last drawn) tile
 	void lower(int x, int y);          //move tile to the begining of the list
 	void raise(int x, int y);          //move tile to the end of the list
@@ -25,10 +26,10 @@ public:
 	void removeAll(int x, int y);      //remove all tiles
 
 private:
-    int allocSize = 10, currentSize = 0;
+	int allocSize, currentSize;
 
-	Tile tileArray[];
-    Tile tempTileArray[];
+	Tile *tileArray = new Tile[allocSize];
+	Tile *tempTileArray = new Tile[allocSize];
 
 };
 
