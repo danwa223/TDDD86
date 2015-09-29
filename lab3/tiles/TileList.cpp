@@ -7,9 +7,13 @@
 #include "TileList.h"
 
 TileList::TileList(){
-    cout << "Tile list is being created";
-    Tile *tileArray = new Tile[allocSize];
-    Tile *tempTileArray = new Tile[allocSize*2];
+	cout << "Tile list is being created";
+
+	currentSize = 0;
+	allocSize = 10;
+
+	Tile *tileArray = new Tile[allocSize];
+    //Tile *tempTileArray = new Tile[allocSize*2];
 }
 
 TileList::~TileList(){
@@ -20,24 +24,30 @@ TileList::~TileList(){
 }
 
 void TileList::addTile(Tile tile){
+	//if true we've reached the max size and need to allocate more space
+	if (currentSize == allocSize){
+        allocate();
+    }
 
-    if (currentSize == allocSize){ //reached array limit but still want to add more
-        for (int i = 0; i < currentSize; ++i){
-            //copy entire old array into temp, O(n)
-            tempTileArray[i] = tileArray[i];
-        }
-        //increment size after adding element since arrays are 0-indexed
-        tempTileArray[currentSize] = tile;
-        currentSize++;
-        delete[] tileArray; //see comment in destructor, is this line needed?
-        tileArray = tempTileArray;
-        allocSize = allocSize*2;
-        //delete[] tempTileArray; //see comment in destructor, is this line needed?
-    }
-    else{
-        tileArray[currentSize] = tile;
-        currentSize++;
-    }
+	//increment current size after adding element since arrays are 0-indexed
+	tileArray[currentSize] = tile;
+	currentSize++;
+}
+
+void TileList::allocate(){
+
+	int tempAllocSize = allocSize*2;
+	Tile *tempTileArray = new Tile[allocSize];
+
+	//copy the old array into the temporary array
+	for (int i = 0; i < currentSize; ++i){
+		tempTileArray[i] = tileArray[i];
+	}
+
+	//free memory of old array and copy the temporary array into a new one
+	delete[] tileArray;
+	tileArray = tempTileArray;
+	allocSize = tempAllocSize;
 }
 
 void TileList::drawAll(QGraphicsScene* scene){
