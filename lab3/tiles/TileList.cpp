@@ -20,7 +20,7 @@ TileList::~TileList(){
     //Labb 3 FAQ säger att destruktorn kallas på "automatiskt" ??? https://www.ida.liu.se/~TDDD86/info/lab3-faq.shtml
     cout << "Tile list is being destroyed" << endl;
 
-	delete[] tileArray;
+    delete[] tileArray;
 }
 
 void TileList::addTile(Tile tile){
@@ -37,7 +37,7 @@ void TileList::addTile(Tile tile){
 void TileList::allocate(){
 
 	int tempAllocSize = allocSize*2;
-	Tile *tempTileArray = new Tile[allocSize];
+    Tile *tempTileArray = new Tile[tempAllocSize];
 
 	//copy the old array into the temporary array
 	for (int i = 0; i < currentSize; ++i){
@@ -45,9 +45,9 @@ void TileList::allocate(){
 	}
 
 	//free memory of old array and copy the temporary array into a new one
-	delete[] tileArray;
+    delete[] tileArray;
 	tileArray = tempTileArray;
-	allocSize = tempAllocSize;
+    allocSize = tempAllocSize;
 }
 
 void TileList::drawAll(QGraphicsScene* scene){
