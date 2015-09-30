@@ -2,10 +2,6 @@
 
 TileList::TileList(){
 
-	currentSize = 0;
-	allocSize = 10;
-
-    Tile *tileArray = new Tile[allocSize];
 }
 
 TileList::~TileList(){
@@ -35,7 +31,7 @@ void TileList::allocate(){
 	}
 
     //free memory of old array and copy the temporary array into a new one
-    //delete[] tileArray;  //TODO: FIX THIS
+    delete[] tileArray;  //TODO: FIX THIS
 	tileArray = tempTileArray;
     allocSize = tempAllocSize;
 }
@@ -43,8 +39,7 @@ void TileList::allocate(){
 void TileList::drawAll(QGraphicsScene* scene) const{
 
 	for (int i = 0; i < currentSize; ++i){
-        tileArray[i].draw(scene); //was Tile[i].draw before???, seems more logical that you want to draw a tile from the tileArray.
-        //also gave compiling errors before
+        tileArray[i].draw(scene);
 	}
 }
 
