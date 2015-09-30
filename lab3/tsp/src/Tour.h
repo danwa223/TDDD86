@@ -13,8 +13,11 @@
 class Tour {
 public:
 
-    Tour();
+	//constructors and destructor
+	Tour();                                  //create an empty list
+	Tour(Point a, Point b, Point c, Point);  //debugging constructor
     ~Tour();
+
     void show();
     void draw(QGraphicsScene* scene);
     int size();
@@ -24,6 +27,7 @@ public:
 
 private:
 
+	Node *firstNode = nullptr;     //pointer to first node in the list, empty by default
 };
 
 #endif // TOUR_H

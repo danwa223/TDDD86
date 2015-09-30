@@ -18,7 +18,17 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    string filename = "tsp10.txt";
+	// define 4 points forming a square
+	Point p(100.0, 100.0);
+	Point q(500.0, 100.0);
+	Point r(500.0, 500.0);
+	Point s(100.0, 500.0);
+	// Set up a Tour with those four points
+	// The constructor should link p->q->r->s->p
+	Tour squareTour(p, q, r, s);
+	squareTour.show();
+
+	/*string filename = "tsp10.txt";
     ifstream input;
     input.open(filename);
 
@@ -55,9 +65,9 @@ int main(int argc, char *argv[]) {
     cout << "Tour distance: " << std::fixed << std::setprecision(4)
          << std::showpoint << tour.distance() << endl;
     cout << "Number of points: " << tour.size() << endl;
-    tour.show();
+	tour.show();
 
     // draw tour
-    tour.draw(scene);
+	tour.draw(scene);*/
     return a.exec(); // start Qt event loop
 }
