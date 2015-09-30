@@ -29,10 +29,11 @@ private:
 	void allocate();                   //allocate more memory for the dynamic array
 	void removeTile(int index);        //remove a specific tile in an array
 
-    int allocSize = 10, currentSize = 0;
+
+	int allocSize = 10;
+	int currentSize = 0;
 
     Tile *tileArray = new Tile[allocSize];
-
 };
 
 #endif // TILELIST_H
