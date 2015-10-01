@@ -18,6 +18,8 @@ public:
 	Tour(Point a, Point b, Point c, Point);  //debugging constructor
     ~Tour();
 
+    void addPoint(Point point);
+    void clear();
     void show();
     void draw(QGraphicsScene* scene);
     int size();

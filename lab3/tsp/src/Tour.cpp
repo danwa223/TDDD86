@@ -5,13 +5,13 @@
 
 Tour::Tour(){}
 
-Tour::Tour(Point a, Point b, Point c, Point){
-
+Tour::Tour(Point a, Point b, Point c, Point d){
+    cout << "A node has been created" << endl;
 	//creating a circular linked list (I hope)
-	firstNode   = new Node(a, nodeB);
-	Node *nodeB = new Node(b, nodeC);
-	Node *nodeC = new Node(c, nodeD);
-	Node *nodeD = new Node(d, nodeA);
+    firstNode = new Node(a, new Node(b, new Node(c, new Node(d, firstNode))));
+    /*Node *nodeB = new Node(b, nullptr);
+    Node *nodeC = new Node(c, nullptr);
+    Node *nodeD = new Node(d, firstNode);*/
 }
 
 Tour::~Tour(){
@@ -27,18 +27,25 @@ void Tour::addPoint(Point point){
 		firstNode = new Node(point, nullptr);
 	}
 	else{
-
-		while (!nullptr){
-
-		}
+        Node *current = firstNode;
+        while (current->next != nullptr){
+            current = current->next;
+        }
+        current->next = new Node(point, nullptr); //syntax for point? seems correct but unsure
 	}
+}
 
-	Node node = new Node(point, nullptr);
+void Tour::clear() { //clears from the front to the back (if there is such a thing in a circular linked list...)
+    while (firstNode != nullptr) {
+        Node* temp = firstNode;
+        firstNode = firstNode->next;
+        delete temp;
+    }
 }
 
 void Tour::show(){
 
-	Point point = node->point;
+    Point point = node->point; //TODO: Fix this, node is not declared here currently in this git push
 	std::cout << point.toString();
 
 	node = node->next;
