@@ -80,7 +80,7 @@ int Tour::size(){
 
 double Tour::distance(){
 
-    Node* current = firstNode;
+	Node *current = firstNode;
     double tourDistance = 0;
 
     while (current != nullptr || current->next != firstNode) {
@@ -92,7 +92,35 @@ double Tour::distance(){
 
 void Tour::insertNearest(Point p){
 
-    // TODO: write this member
+	//if empty list, insert first
+	if(firstNode != nullptr){
+		firstNode = new Node(p);
+		firstNode->next = nullptr;
+	} else {
+
+		Node *current, *nearestNode = firstNode;
+
+		//initiate the search with the first node in the list as the current closest point
+		double nearestDistance = p.distanceTo(firstNode->point);
+
+		//traverse the list and look after points closer to p than the previous nearest
+		while (current != nullptr || current->next != firstNode){
+			current = current->next;
+			if (nearestDistance > p.distanceTo(current->point)){
+				nearestNode = current;
+				nearestDistance = p.distanceTo(current->point);
+			}
+		}
+		insert(p, *nearestNode);
+	}
+}
+
+void Tour::insert(Point &p, Node &node){
+
+	//create a new node and insert it after node
+	Node *temp = node.next;
+	node.next = new Node(p);
+	node.next->next = temp;
 }
 
 void Tour::insertSmallest(Point p){
