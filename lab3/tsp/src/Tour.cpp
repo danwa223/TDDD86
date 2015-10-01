@@ -33,7 +33,7 @@ void Tour::addPoint(Point point){
         while (current->next != nullptr){
             current = current->next;
         }
-        current->next = new Node(point, nullptr); //syntax for point? seems correct but unsure
+        current->next = new Node(point, nullptr);
 	}
 }
 
@@ -48,7 +48,7 @@ void Tour::clear() { //clears from the front to the back (if there is such a thi
     }
 }
 
-void Tour::show(){
+void Tour::show(){ //prints the linked list to console
 
     Node* current = firstNode;
 
