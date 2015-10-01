@@ -75,7 +75,14 @@ int Tour::size(){
 
 double Tour::distance(){
 
-    // TODO: write this member
+    Node* current = firstNode;
+    double tourDistance = 0;
+
+    while (current != nullptr || current->next != firstNode) {
+        tourDistance += current->point.distanceTo(current->next->point);
+        current = current->next;
+    }
+    return tourDistance;
 }
 
 void Tour::insertNearest(Point p){
