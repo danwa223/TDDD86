@@ -41,16 +41,15 @@ void Tour::clear() { //clears from the front to the back (if there is such a thi
 
 	Node *current = firstNode;
 
-	while (firstNode != nullptr || current->next != firstNode) {
-        Node* temp = firstNode;
-        firstNode = firstNode->next;
-        delete temp;
-    }
+	while (firstNode != nullptr) {
+		current = current->next;
+		delete current;
+	}
 }
 
 void Tour::show(){ //prints the linked list to console
 
-    Node* current = firstNode;
+	Node *current = firstNode;
 
     while (current != nullptr || current->next != firstNode) {
         cout << current->point.toString() << endl;
