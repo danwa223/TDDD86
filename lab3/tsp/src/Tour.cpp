@@ -3,6 +3,8 @@
 #include "Node.h"
 #include "Point.h"
 
+using namespace std;
+
 Tour::Tour(){}
 
 Tour::Tour(Point a, Point b, Point c, Point d){
@@ -45,10 +47,10 @@ void Tour::clear() { //clears from the front to the back (if there is such a thi
 
 void Tour::show(){
 
-    Point point = node->point; //TODO: Fix this, node is not declared here currently in this git push
-	std::cout << point.toString();
+    Point point = Node->point; //TODO: Fix this, node is not declared here currently in this git push
+    cout << point.toString() << endl;
 
-	node = node->next;
+    point = Node->next;
 }
 
 void Tour::draw(QGraphicsScene *scene){
