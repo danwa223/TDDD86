@@ -59,7 +59,12 @@ void Tour::show(){ //prints the linked list to console
 
 void Tour::draw(QGraphicsScene *scene){
 
-    // TODO: write this member
+    Node* current = firstNode;
+
+    while (current != nullptr || current->next != firstNode) {
+        current->point.drawTo(current->next->point, scene);
+        current = current->next;
+    }
 }
 
 int Tour::size(){
