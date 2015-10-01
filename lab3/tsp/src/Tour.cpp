@@ -8,7 +8,6 @@ using namespace std;
 Tour::Tour(){}
 
 Tour::Tour(Point a, Point b, Point c, Point d){
-    cout << "A node has been created" << endl;
 
 	//creating a circular linked list (I hope)
 	firstNode = new Node(a,
@@ -39,6 +38,7 @@ void Tour::addPoint(Point point){
 }
 
 void Tour::clear() { //clears from the front to the back (if there is such a thing in a circular linked list...)
+
     while (firstNode != nullptr) {
         Node* temp = firstNode;
         firstNode = firstNode->next;
@@ -48,10 +48,12 @@ void Tour::clear() { //clears from the front to the back (if there is such a thi
 
 void Tour::show(){
 
-	Point point = Node->point; //TODO: Fix this, node is not declared here currently in this git push
-    cout << point.toString() << endl;
+    Node* current = firstNode;
 
-    point = Node->next;
+    while (current != nullptr || current->next != firstNode) {
+        cout << current->point.toString() << endl;
+        current = current->next;
+	}
 }
 
 void Tour::draw(QGraphicsScene *scene){
