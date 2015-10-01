@@ -56,11 +56,7 @@ void Tour::show(){ //prints the linked list to console
 	}
 }
 
-void Tour::draw(QGraphicsScene *scene){while (firstNode != nullptr) {
-        Node* temp = firstNode;
-        firstNode = firstNode->next;
-        delete temp;
-    }
+void Tour::draw(QGraphicsScene *scene){
 
     // TODO: write this member
 }
