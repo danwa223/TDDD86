@@ -39,7 +39,9 @@ void Tour::addPoint(Point point){
 
 void Tour::clear() { //clears from the front to the back (if there is such a thing in a circular linked list...)
 
-    while (firstNode != nullptr) {
+	Node *current = firstNode;
+
+	while (firstNode != nullptr || current->next != firstNode) {
         Node* temp = firstNode;
         firstNode = firstNode->next;
         delete temp;
