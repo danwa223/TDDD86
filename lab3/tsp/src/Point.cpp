@@ -40,7 +40,7 @@ string Point::toString() const
 {
     stringstream string;
     string << "(" << std::fixed << std::setprecision(1) << std::showpoint
-		<< x << ", " << y << ")\n";
+        << x << ", " << y;
     return string.str();
 }
 
