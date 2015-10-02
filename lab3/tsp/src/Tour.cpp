@@ -58,7 +58,6 @@ void Tour::show(){ //prints the linked list to console
         cout << current->point.toString() << endl;
         current = current->next;
     }
-    return;
 }
 
 void Tour::draw(QGraphicsScene *scene){
@@ -109,7 +108,6 @@ double Tour::distance(){
 void Tour::insertNearest(Point p){
 
     //if empty list, insert first
-
     if(firstNode == nullptr){
 		firstNode = new Node(p);
         firstNode->next = firstNode;
