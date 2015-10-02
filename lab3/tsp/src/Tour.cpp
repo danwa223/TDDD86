@@ -51,8 +51,8 @@ void Tour::show(){ //prints the linked list to console
 
 	Node *current = firstNode;
 
-    cout << current->point.toString() << endl;
-    current = current->next;
+	cout << current->point.toString() << endl;
+	current = current->next;
 
     while (current != nullptr && current != firstNode) {
         cout << current->point.toString() << endl;
@@ -83,6 +83,7 @@ int Tour::size(){
     }
 
     int pointCtr = 1;
+    current = current->next;
     while(current != nullptr && current != firstNode){
 		pointCtr++;
 		current = current->next;
@@ -107,7 +108,8 @@ double Tour::distance(){
 
 void Tour::insertNearest(Point p){
 
-	//if empty list, insert first
+    //if empty list, insert first
+
     if(firstNode == nullptr){
 		firstNode = new Node(p);
         firstNode->next = firstNode;
@@ -124,7 +126,14 @@ void Tour::insertNearest(Point p){
             nearestDistance = p.distanceTo(current->point);
         }
 
-		//traverse the list and look after points closer to p than the previous nearest
+		current = current->next;
+		if (nearestDistance > p.distanceTo(current->point)){
+			nearestNode = current;
+			nearestDistance = p.distanceTo(current->point);
+		}
+
+        //traverse the list and look after points closer to p than the previous nearest
+
         while (current != nullptr && current != firstNode){
 			current = current->next;
 			if (nearestDistance > p.distanceTo(current->point)){
@@ -136,15 +145,45 @@ void Tour::insertNearest(Point p){
 	}
 }
 
-void Tour::insert(Point p, Node &node){
-
-	//create a new node and insert it after node
-	Node *temp = node.next;
-	node.next = new Node(p);
-    node.next->next = temp;
-}
-
 void Tour::insertSmallest(Point p){
 
-    // TODO: write this member
+	//if empty list, insert first
+	if(firstNode == nullptr){
+		firstNode = new Node(p);
+		firstNode->next = nullptr;
+	} else {
+
+		Node *current, *nearestNode = firstNode;
+
+		//pretend to insert p between firstNode and firstNode->next to get the potential increase in distance
+		double smallestIncrease = p.distanceTo(current->point) + p.distanceTo(current->next->point);
+
+        current = current->next;
+
+		//compare current smallest increase with the potential distance between current, p and current-next
+		if (smallestIncrease > p.distanceTo(current->point) + p.distanceTo(current->next->point)){
+			nearestNode = current;
+			smallestIncrease = p.distanceTo(current->point) + p.distanceTo(current->next->point);
+		}
+
+		//traverse the list and look after points which does not increase the total tour length
+		while (current != nullptr && current->next != firstNode){
+            current = current->next;
+
+			//compare current smallest increase with the potential distance between current, p and current-next
+			if (smallestIncrease > p.distanceTo(current->point) + p.distanceTo(current->next->point)){
+				nearestNode = current;
+				smallestIncrease = p.distanceTo(current->point) + p.distanceTo(current->next->point);
+			}
+		}
+		insert(p, *nearestNode);
+    }
+}
+
+void Tour::insert(Point p, Node &node){
+
+		//create a new node and insert it after node
+		Node *temp = node.next;
+		node.next = new Node(p);
+		node.next->next = temp;
 }
