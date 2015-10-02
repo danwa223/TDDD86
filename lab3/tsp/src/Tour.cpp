@@ -142,7 +142,7 @@ void Tour::insertSmallest(Point p){
 	//if empty list, insert first
 	if(firstNode == nullptr){
 		firstNode = new Node(p);
-		firstNode->next = nullptr;
+		firstNode->next = firstNode;
 	} else {
 
 		//Node *current, *nearestNode = firstNode;
@@ -150,7 +150,7 @@ void Tour::insertSmallest(Point p){
 		Node *nearestNode = firstNode;
 
 		//pretend to insert p between firstNode and firstNode->next to get the potential increase in distance
-		double smallestIncrease = p.distanceTo(current->point) + p.distanceTo(current->next->point);
+		double smallestIncrease = (p.distanceTo(current->point) + p.distanceTo(current->next->point));
 
 		current = current->next;
 
