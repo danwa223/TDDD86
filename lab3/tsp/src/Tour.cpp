@@ -51,17 +51,24 @@ void Tour::show(){ //prints the linked list to console
 
 	Node *current = firstNode;
 
-    while (current != nullptr || current->next != firstNode) {
+    cout << current->point.toString() << endl;
+    current = current->next;
+
+    while (current != nullptr && current != firstNode) {
         cout << current->point.toString() << endl;
         current = current->next;
-	}
+    }
+    return;
 }
 
 void Tour::draw(QGraphicsScene *scene){
 
     Node* current = firstNode;
 
-    while (current != nullptr || current->next != firstNode) {
+    current->point.drawTo(current->next->point, scene);
+    current = current->next;
+
+    while (current != nullptr && current != firstNode) {
         current->point.drawTo(current->next->point, scene);
         current = current->next;
     }
@@ -71,11 +78,16 @@ int Tour::size(){
 
 	Node *current = firstNode;
 
-	int pointCtr = 0;
-	while(current != nullptr || current->next != firstNode){
+    if (firstNode == nullptr){
+        return 0;
+    }
+
+    int pointCtr = 1;
+    while(current != nullptr && current != firstNode){
 		pointCtr++;
 		current = current->next;
 	}
+    return pointCtr;
 }
 
 double Tour::distance(){
@@ -83,7 +95,10 @@ double Tour::distance(){
 	Node *current = firstNode;
     double tourDistance = 0;
 
-    while (current != nullptr || current->next != firstNode) {
+    tourDistance += current->point.distanceTo(current->next->point);
+    current = current->next;
+
+    while (current != nullptr && current != firstNode) {
         tourDistance += current->point.distanceTo(current->next->point);
         current = current->next;
     }
@@ -93,18 +108,24 @@ double Tour::distance(){
 void Tour::insertNearest(Point p){
 
 	//if empty list, insert first
-	if(firstNode != nullptr){
+    if(firstNode == nullptr){
 		firstNode = new Node(p);
-		firstNode->next = nullptr;
+        firstNode->next = firstNode;
 	} else {
 
 		Node *current, *nearestNode = firstNode;
 
-		//initiate the search with the first node in the list as the current closest point
-		double nearestDistance = p.distanceTo(firstNode->point);
+        //initiate the search with the first node in the list as the current closest point
+        double nearestDistance = p.distanceTo(firstNode->point);
+
+        current = current->next;
+        if (nearestDistance > p.distanceTo(current->point)){
+            nearestNode = current;
+            nearestDistance = p.distanceTo(current->point);
+        }
 
 		//traverse the list and look after points closer to p than the previous nearest
-		while (current != nullptr || current->next != firstNode){
+        while (current != nullptr && current != firstNode){
 			current = current->next;
 			if (nearestDistance > p.distanceTo(current->point)){
 				nearestNode = current;
@@ -115,7 +136,7 @@ void Tour::insertNearest(Point p){
 	}
 }
 
-void Tour::insert(Point &p, Node &node){
+void Tour::insert(Point p, Node &node){
 
 	//create a new node and insert it after node
 	Node *temp = node.next;

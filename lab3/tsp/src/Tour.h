@@ -28,7 +28,7 @@ public:
     void insertSmallest(Point p);
 
 private:
-	void insert(Point &p, Node &node);
+    void insert(Point p, Node &node);
 
 	Node *firstNode = nullptr;     //pointer to first node in the list, empty by default
 };
