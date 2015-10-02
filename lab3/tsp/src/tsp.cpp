@@ -16,6 +16,7 @@
 #include "Tour.h"
 
 int main(int argc, char *argv[]) {
+
     QApplication a(argc, argv);
 
 	// define 4 points forming a square
@@ -28,7 +29,7 @@ int main(int argc, char *argv[]) {
 	Tour squareTour(p, q, r, s);
 	squareTour.show();
 
-	/*string filename = "tsp10.txt";
+	string filename = "tsp10.txt";
     ifstream input;
     input.open(filename);
 
@@ -51,7 +52,7 @@ int main(int argc, char *argv[]) {
     double x;
     double y;
     while (input >> x >> y) {
-        Point p(x, y);
+		Point p(x, y);
         tour.insertNearest(p);
         //uncomment the 4 lines below to animate
         //tour.draw(scene);
@@ -68,6 +69,6 @@ int main(int argc, char *argv[]) {
 	tour.show();
 
     // draw tour
-	tour.draw(scene);*/
+	tour.draw(scene);
     return a.exec(); // start Qt event loop
 }
