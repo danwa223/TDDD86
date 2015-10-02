@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 	Tour squareTour(p, q, r, s);
 	squareTour.show();
 
-	/*string filename = "tsp10.txt";
+    string filename = "tsp10.txt";
     ifstream input;
     input.open(filename);
 
@@ -68,6 +68,6 @@ int main(int argc, char *argv[]) {
 	tour.show();
 
     // draw tour
-	tour.draw(scene);*/
+    tour.draw(scene);
     return a.exec(); // start Qt event loop
 }
