@@ -137,7 +137,7 @@ void Tour::insertSmallest(Point p){
 		//pretend to insert p between firstNode and firstNode->next to get the potential increase in distance
 		double smallestIncrease = p.distanceTo(current->point) + p.distanceTo(current->next->point);
 
-		current = current-next;
+		current = current->next;
 
 		//compare current smallest increase with the potential distance between current, p and current-next
 		if (smallestIncrease > p.distanceTo(current->point) + p.distanceTo(current->next->point)){
@@ -147,7 +147,7 @@ void Tour::insertSmallest(Point p){
 
 		//traverse the list and look after points which does not increase the total tour length
 		while (current != nullptr && current->next != firstNode){
-			current = current-next;
+			current = current->next;
 
 			//compare current smallest increase with the potential distance between current, p and current-next
 			if (smallestIncrease > p.distanceTo(current->point) + p.distanceTo(current->next->point)){
