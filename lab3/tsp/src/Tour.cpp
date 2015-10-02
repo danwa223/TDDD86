@@ -110,10 +110,11 @@ void Tour::insertNearest(Point p){
     //if empty list, insert first
     if(firstNode == nullptr){
 		firstNode = new Node(p);
-        firstNode->next = firstNode;
+		firstNode->next = firstNode;
 	} else {
 
-		Node *current, *nearestNode = firstNode;
+		Node *current = firstNode;
+		Node *nearestNode = firstNode;
 
         //initiate the search with the first node in the list as the current closest point
         double nearestDistance = p.distanceTo(firstNode->point);
@@ -144,7 +145,9 @@ void Tour::insertSmallest(Point p){
 		firstNode->next = nullptr;
 	} else {
 
-		Node *current, *nearestNode = firstNode;
+		//Node *current, *nearestNode = firstNode;
+		Node *current = firstNode;
+		Node *nearestNode = firstNode;
 
 		//pretend to insert p between firstNode and firstNode->next to get the potential increase in distance
 		double smallestIncrease = p.distanceTo(current->point) + p.distanceTo(current->next->point);

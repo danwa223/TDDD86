@@ -16,6 +16,7 @@
 #include "Tour.h"
 
 int main(int argc, char *argv[]) {
+
     QApplication a(argc, argv);
 
 	// define 4 points forming a square
@@ -51,7 +52,7 @@ int main(int argc, char *argv[]) {
     double x;
     double y;
     while (input >> x >> y) {
-        Point p(x, y);
+		Point p(x, y);
         tour.insertNearest(p);
         //uncomment the 4 lines below to animate
         //tour.draw(scene);
