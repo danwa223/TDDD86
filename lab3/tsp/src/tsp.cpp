@@ -52,9 +52,9 @@ int main(int argc, char *argv[]) {
     double x;
     double y;
     while (input >> x >> y) {
-		Point p(x, y);
+        Point p(x, y);
 		//tour.insertNearest(p);
-		tour.insertSmallest(p);
+        tour.insertSmallest(p);
         //uncomment the 4 lines below to animate
 		tour.draw(scene);
 		std::chrono::milliseconds dura(50);
