@@ -13,3 +13,12 @@ void Hero::draw(QGraphicsScene *scene) const {
     scene->addRect(QRectF(corner.x * UNIT_WIDTH, corner.y * UNIT_HEIGHT,
                           UNIT_WIDTH, UNIT_HEIGHT), Qt::NoPen, QBrush(HERO_COLOR));
 }
+
+void Hero::moveTowards(const Point& p) {
+	Point heroPos = asPoint();
+	if (heroPos.x > p.x) heroPos.x--;
+	if (heroPos.x < p.x) heroPos.x++;
+	if (heroPos.y > p.y) heroPos.y--;
+	if (heroPos.y < p.y) heroPos.y++;
+	//checkBounds(); //dis is private
+}

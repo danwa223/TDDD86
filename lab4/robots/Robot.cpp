@@ -13,3 +13,14 @@ void Robot::draw(QGraphicsScene *scene) const {
     scene->addEllipse(QRectF(corner.x * UNIT_WIDTH, corner.y * UNIT_HEIGHT,
                              JUNK_RADIUS, JUNK_RADIUS), QPen(), QBrush(ROBOT_COLOR));
 }
+
+void Robot::moveTowards(const Unit& u) {
+
+	Point robotPos = asPoint();
+
+	if (robotPos.x > u.x) robotPos.x--;
+	if (robotPos.x < u.x) robotPos.x++;
+	if (robotPos.y > u.y) robotPos.y--;
+	if (robotPos.y < u.y) robotPos.y++;
+	//checkBounds();
+}
