@@ -23,6 +23,11 @@ public:
 	 */
 	virtual void moveTowards(const Unit& u);
 
+    /*
+     *
+     */
+    virtual bool attacks(const Unit &u) const;
+
 };
 
 #endif // ROBOT_H

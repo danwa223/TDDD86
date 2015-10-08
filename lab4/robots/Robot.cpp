@@ -22,3 +22,8 @@ void Robot::moveTowards(const Unit& u) {
     if (y < u.y) y++;
     checkBounds();
 }
+
+bool Robot::attacks(const Unit &u) const{
+    return (abs(x - u.x) <= 1 &&
+            abs(y - u.y) <= 1);
+}

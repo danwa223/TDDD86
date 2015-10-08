@@ -35,7 +35,7 @@ public:
     /*
     * Can I catch u in one move?
     */
-    bool attacks(const Unit& u) const;
+    bool attacks(void); //should be void? was (const Unit &u) const before
 
     /*
     * Take one step closer to u

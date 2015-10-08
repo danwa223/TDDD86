@@ -31,11 +31,6 @@ bool Unit::at(const Unit& u) const {
     return (x == u.x && y == u.y);
 }
 
-bool Unit::attacks(const Unit& u) const {
-    return (abs(x - u.x) <= 1 &&
-            abs(y - u.y) <= 1);
-}
-
 void Unit::teleport() {
     x = rand_int (MIN_X, MAX_X);
     y = rand_int (MIN_Y, MAX_Y);
