@@ -21,7 +21,7 @@ public:
 	/*
 	 *
 	 */
-	virtual void moveTowards(const Point& p);
+    virtual void moveTowards(const Unit &u);
 };
 
 #endif // HERO_H
