@@ -16,8 +16,8 @@ void Robot::draw(QGraphicsScene *scene) const {
 
 void Robot::moveTowards(const Unit& u) {
 
-	Point robotPos = asPoint();
-
+    Point robotPos = asPoint();
+    //should somehow compare position with hero, hero inherits Unit, yet how do we know that the Unit we compare with is the hero???
 	if (robotPos.x > u.x) robotPos.x--;
 	if (robotPos.x < u.x) robotPos.x++;
 	if (robotPos.y > u.y) robotPos.y--;

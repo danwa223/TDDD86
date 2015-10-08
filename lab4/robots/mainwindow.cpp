@@ -118,6 +118,10 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
                 gameState.teleportHero();
                 actionTaken = true;
                 break;
+            case Qt::Key_5:
+                actionTaken = true;
+                waiting = true;
+                break;
             default:
                 QWidget::keyPressEvent(e);
             }

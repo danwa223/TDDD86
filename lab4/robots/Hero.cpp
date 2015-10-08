@@ -16,6 +16,7 @@ void Hero::draw(QGraphicsScene *scene) const {
 
 void Hero::moveTowards(const Point& p) {
 	Point heroPos = asPoint();
+    //does this compare hero position with a move we already made and adjusts hero position thereafter???
 	if (heroPos.x > p.x) heroPos.x--;
 	if (heroPos.x < p.x) heroPos.x++;
 	if (heroPos.y > p.y) heroPos.y--;
