@@ -17,6 +17,11 @@ public:
     Unit(const Unit& u);
     Unit(const Point& p);
 
+	/*
+	 * Draw the unit
+	 */
+	void draw(void /*QGraphicsScene *scene*/) const;
+
     /*
     * Return Point representation of Unit
     */

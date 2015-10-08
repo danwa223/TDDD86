@@ -12,7 +12,11 @@
 class Robot : public Unit {
 public:
     Robot();
-    void draw(QGraphicsScene* scene) const;
+
+	/*
+	* Draws this junk onto the given QGraphicsScene.
+	*/
+	virtual void draw(QGraphicsScene* scene) const;
 };
 
 #endif // ROBOT_H

@@ -17,7 +17,7 @@ public:
     /*
     * Draws this junk onto the given QGraphicsScene.
     */
-    void draw(QGraphicsScene* scene) const;
+	virtual void draw(QGraphicsScene* scene) const;
 };
 
 #endif // JUNK_H
