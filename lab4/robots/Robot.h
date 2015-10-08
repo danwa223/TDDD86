@@ -17,6 +17,12 @@ public:
 	* Draws this junk onto the given QGraphicsScene.
 	*/
 	virtual void draw(QGraphicsScene* scene) const;
+
+	/*
+	 *
+	 */
+	virtual void moveTowards(const Unit& u);
+
 };
 
 #endif // ROBOT_H

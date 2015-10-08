@@ -20,7 +20,7 @@ public:
 	/*
 	 * Draw the unit
 	 */
-	void draw(void /*QGraphicsScene *scene*/) const;
+	void draw(void) const;
 
     /*
     * Return Point representation of Unit
@@ -40,7 +40,7 @@ public:
     /*
     * Take one step closer to u
     */
-    void moveTowards(const Unit& u);
+	void moveTowards(void);
 
     /*
     * Teleport. Does not check for collision
