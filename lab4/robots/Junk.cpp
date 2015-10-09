@@ -22,3 +22,7 @@ void Junk::moveTowards(const Unit &u) {
 bool Junk::attacks(const Unit &u) const{
     return false; //junk cannot attack
 }
+
+bool Junk::isJunk(const Unit &u) const{
+    return true; //junk is always junk, but when is isJunk supposed to be called? Should probably return true if Robot stopped moving?
+}
