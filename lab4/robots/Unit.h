@@ -51,7 +51,9 @@ public:
     * Euclidean distance to u
     */
     double distanceTo(const Unit& u) const;
-//private:
+private: //need to access these with Robot and Hero
+    friend class Robot;
+    friend class Hero;
     int x;  // x position of this unit
     int y;  // y position of this unit
 
