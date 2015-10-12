@@ -15,7 +15,7 @@ void Junk::draw(QGraphicsScene *scene) const {
                              JUNK_RADIUS, JUNK_RADIUS), QPen(), QBrush(JUNK_COLOR));
 }
 
-void Junk::moveTowards(const Unit &u) {
+void Junk::moveTowards(const Unit &u){
     //do nothing
 }
 
@@ -24,5 +24,5 @@ bool Junk::attacks(const Unit &u) const{
 }
 
 bool Junk::isJunk(const Unit &u) const{
-    return true; //junk is always junk, but when is isJunk supposed to be called? Should probably return true if Robot stopped moving?
+    return true; //junk is always junk
 }

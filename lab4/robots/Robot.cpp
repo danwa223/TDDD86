@@ -29,3 +29,6 @@ bool Robot::attacks(const Unit &u) const{
             abs(y - u.y) <= 1);
 }
 
+bool Robot::isJunk(const Unit &u) const{
+    return false;
+}

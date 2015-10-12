@@ -9,6 +9,11 @@
 
 GameState::GameState(){}
 
+//Add constructor in Robot class that is being called with the constructor in junk? Is the constructor supposed to replace the junks vector?
+//How is isJunk() supposed to work? Do we need an instance of the virtual function in Robot.cpp aswell?
+//what is the idea with a pointer in the datatype of the vector? vector<Robot*> ?
+//Why would the constructor need to be changed? We will always build a board with numberOfRobots robots.
+
 GameState::GameState(int numberOfRobots) {
     for (int i = 0; i < numberOfRobots; i++) {
         Robot robot;
