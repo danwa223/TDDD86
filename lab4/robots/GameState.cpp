@@ -77,6 +77,7 @@ bool GameState::heroDead() const {
 bool GameState::isSafe(const Unit& unit) const {
     for (unsigned int i = 0; i < robots.size(); i++){
         if (robots[i]->attacks(unit)) return false;
+        if ((robots[i]->isJunk()) && (robots[i]->distanceTo(unit) < 1)) return false;
     }
     return true;
 }
