@@ -29,7 +29,7 @@ public:
      */
     virtual bool attacks(const Unit &u) const;
 
-    virtual bool isJunk(const Unit &u) const;
+    virtual bool isJunk() const;
 };
 
 #endif // JUNK_H

@@ -69,14 +69,14 @@ public:
     Hero getHero () const;
 
 private:
-    std::vector<Robot> robots;  // the robots
-    std::vector<Junk> junks;    // robots that have turned to junk
-    Hero hero;                  // the hero
+    std::vector<Robot*> robots;  // the robots
+    //std::vector<Junk> junks;   // robots that have turned to junk
+    Hero* hero = new Hero();     // the hero -- PROBLEM HERE
 
     // private helpers
-    bool isEmpty(const Unit& unit) const;
-    bool junkAt(const Unit& unit) const;
-    int countRobotsAt(const Unit& unit) const;
+    bool isEmpty(Unit *unit) const;
+    //bool junkAt(const Unit& unit) const;
+    int countRobotsAt(Unit *unit) const;
 
 };
 

@@ -23,6 +23,6 @@ bool Junk::attacks(const Unit &u) const{
     return false; //junk cannot attack
 }
 
-bool Junk::isJunk(const Unit &u) const{
+bool Junk::isJunk() const{
     return true; //junk is always junk
 }

@@ -28,7 +28,7 @@ public:
      */
     virtual bool attacks(const Unit &u) const;
 
-    virtual bool isJunk(const Unit &u) const; //use void? I dont even...
+    virtual bool isJunk() const; //use void? I dont even...
 };
 
 #endif // ROBOT_H

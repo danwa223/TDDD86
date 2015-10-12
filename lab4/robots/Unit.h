@@ -30,7 +30,7 @@ public:
     /*
     * Am I in the same square as u?
     */
-    bool at(const Unit& u) const;
+    bool at(Unit *u) const;
 
     /*
     * Can I catch u in one move?

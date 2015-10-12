@@ -8,6 +8,9 @@
 #include "utilities.h"
 #include <cstdlib>
 #include <cmath>
+#include <iostream>
+
+using namespace std;
 
 Unit::Unit() {
     teleport();
@@ -27,8 +30,8 @@ Point Unit::asPoint() const {
     return Point{x, y};
 }
 
-bool Unit::at(const Unit& u) const {
-    return (x == u.x && y == u.y);
+bool Unit::at(Unit *u) const {
+    return (x == u->x && y == u->y);
 }
 
 void Unit::teleport() {
