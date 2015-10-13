@@ -17,6 +17,9 @@ GameState::GameState(){}
 //what is the idea with a pointer in the datatype of the vector? vector<Robot*> ?
 
 GameState::GameState(int numberOfRobots) {
+    for (int i = 0; i < robots.size(); i++){
+        delete robots[i];
+    }
     for (int i = 0; i < numberOfRobots; i++) {
         Robot *robot = new Robot();
         while (!isEmpty (robot)){
@@ -26,6 +29,14 @@ GameState::GameState(int numberOfRobots) {
     }
     teleportHero();
 }
+
+//TODO: Ask about destructor
+//
+/*GameState::~GameState(){
+    for (int i = 0; i < robots.size(); i++){
+        delete robots[i];
+    }
+}*/
 
 void GameState::draw(QGraphicsScene *scene) const {
     scene->clear();
