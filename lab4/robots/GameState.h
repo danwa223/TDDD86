@@ -70,6 +70,7 @@ public:
 
 private:
     std::vector<Robot*> robots;  // the robots
+
     //std::vector<Junk> junks;   // robots that have turned to junk
     Hero* hero = new Hero();     // the hero
 
