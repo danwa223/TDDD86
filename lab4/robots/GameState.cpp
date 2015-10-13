@@ -16,7 +16,8 @@ GameState::GameState(){}
 //How is isJunk() supposed to work? Do we need an instance of the virtual function in Robot.cpp aswell?
 //what is the idea with a pointer in the datatype of the vector? vector<Robot*> ?
 
-GameState::GameState(int numberOfRobots){
+
+GameState::GameState(int numberOfRobots) {
     for (int i = 0; i < numberOfRobots; i++) {
         Robot *robot = new Robot();
         while (!isEmpty (robot)){
@@ -26,6 +27,14 @@ GameState::GameState(int numberOfRobots){
     }
     teleportHero();
 }
+
+//TODO: Ask about destructor
+//
+/*GameState::~GameState(){
+    for (int i = 0; i < robots.size(); i++){
+        delete robots[i];
+    }
+}*/
 
 void GameState::draw(QGraphicsScene *scene) const {
     scene->clear();

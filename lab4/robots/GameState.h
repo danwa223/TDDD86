@@ -21,6 +21,7 @@ class GameState {
 public:
     GameState();
     GameState(int numberOfRobots);
+    //~GameState();
 
     /*
      * Clear and redraw entire playing field
