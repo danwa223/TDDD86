@@ -53,7 +53,9 @@ int GameState::countCollisions() {
         if (collision){
             if (!(robots[i]->isJunk())){
                 numberDestroyed++;
-                robots[i] = new Junk(*robots[i]); //unsure what actually happens
+                Robot *tempptr = robots[i];
+                robots[i] = new Junk(*robots[i]);
+                delete tempptr;
             }
         }
         i++;
