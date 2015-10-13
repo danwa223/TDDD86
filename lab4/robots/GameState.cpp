@@ -16,8 +16,11 @@ GameState::GameState(){}
 //How is isJunk() supposed to work? Do we need an instance of the virtual function in Robot.cpp aswell?
 //what is the idea with a pointer in the datatype of the vector? vector<Robot*> ?
 
-
+//TODO: Where and what do we need to delete?
+//TODO: Why do we need copy constructor, or a new operator?
 GameState::GameState(int numberOfRobots) {
+
+    //delete GameState;
     for (int i = 0; i < numberOfRobots; i++) {
         Robot *robot = new Robot();
         while (!isEmpty (robot)){
@@ -28,8 +31,7 @@ GameState::GameState(int numberOfRobots) {
     teleportHero();
 }
 
-//TODO: Ask about destructor
-//
+//TODO: Ask about destructor. This version result in strange seg faults in various places, see TODO in mainwindow.cpp
 /*GameState::~GameState(){
     for (int i = 0; i < robots.size(); i++){
         delete robots[i];
@@ -62,6 +64,8 @@ int GameState::countCollisions() {
         if (collision){
             if (!(robots[i]->isJunk())){
                 numberDestroyed++;
+
+                //TODO: Is this correct?
                 Robot *tempptr = robots[i];
                 delete[] robots[i];
                 robots[i] = new Junk(*tempptr);
