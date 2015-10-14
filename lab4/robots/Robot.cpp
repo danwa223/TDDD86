@@ -7,7 +7,6 @@
 #include "constants.h"
 
 Robot::Robot() : Unit() {}
-//Task 2: Need constructor for the constructor in Junk???
 
 void Robot::draw(QGraphicsScene *scene) const {
     Point corner = asPoint();

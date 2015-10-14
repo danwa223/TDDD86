@@ -16,12 +16,16 @@
 #include "Robot.h"
 #include "Junk.h"
 #include "Hero.h"
+#include <iostream>
 
 class GameState {
 public:
     GameState();
+    GameState(const GameState& other);
     GameState(int numberOfRobots);
-    //~GameState();
+    ~GameState();
+
+    GameState& operator=(const GameState& other); //would this be the proper way to put the operator?
 
     /*
      * Clear and redraw entire playing field
@@ -70,10 +74,12 @@ public:
     Hero getHero () const;
 
 private:
-    std::vector<Robot*> robots;  // the robots
 
+    //void GameState::copyOther(const GameState& other); //see cpp file
+
+    std::vector<Robot*> robots;  // the robots
     //std::vector<Junk> junks;   // robots that have turned to junk
-    Hero* hero = new Hero();     // the hero
+    Hero* hero = nullptr;     // the hero
 
     // private helpers
     bool isEmpty(Unit *unit) const;

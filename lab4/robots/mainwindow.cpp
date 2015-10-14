@@ -9,6 +9,7 @@
 #include "Hero.h"
 #include "Robot.h"
 #include "Junk.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent) {
@@ -161,7 +162,7 @@ void MainWindow::processMove(bool waiting) {
 
     if (!gameState.anyRobotsLeft()) { // won level
         numberOfRobots = std::min(MAX_ROBOTS, numberOfRobots + ROBOTS_INC);
-        gameState = GameState(numberOfRobots);
+        gameState = GameState(numberOfRobots); //calls the operator specified in GameState.h and create a new GameState
         gameState.draw(scene);
         ++level;
         displayLevel();
@@ -194,7 +195,7 @@ void MainWindow::resetGame() {
     score = 0;
     level = 1;
     numberOfRobots = MIN_ROBOTS;
-    gameState = GameState(numberOfRobots);
+    gameState = GameState(numberOfRobots); //calls the operator specified in GameState.h
     gameState.draw(scene);
     displayScore();
     displayLevel();

@@ -10,17 +10,20 @@
 
 using namespace std;
 
-GameState::GameState(){}
+GameState::GameState(){
+    hero = new Hero();
+}
 
-//Add constructor in Robot class that is being called with the constructor in junk? Is the constructor supposed to replace the junks vector?
-//How is isJunk() supposed to work? Do we need an instance of the virtual function in Robot.cpp aswell?
-//what is the idea with a pointer in the datatype of the vector? vector<Robot*> ?
+GameState::GameState(const GameState& other){
+    hero = new Hero(*other.hero);
+    for (int i = 0; i < other.robots.size(); i++){
+        Robot *robot = new Robot(*other.robots[i]);
+        robots.push_back(robot);
+    }
+}
 
-//TODO: Where and what do we need to delete?
-//TODO: Why do we need copy constructor, or a new operator?
 GameState::GameState(int numberOfRobots) {
-
-    //delete GameState;
+    hero = new Hero();
     for (int i = 0; i < numberOfRobots; i++) {
         Robot *robot = new Robot();
         while (!isEmpty (robot)){
@@ -31,12 +34,18 @@ GameState::GameState(int numberOfRobots) {
     teleportHero();
 }
 
-//TODO: Ask about destructor. This version result in strange seg faults in various places, see TODO in mainwindow.cpp
-/*GameState::~GameState(){
-    for (int i = 0; i < robots.size(); i++){
+GameState::~GameState(){
+    for (unsigned int i = 0; i < robots.size(); i++){
         delete robots[i];
     }
-}*/
+    delete hero;
+}
+
+GameState& GameState::operator=(const GameState& other){
+    GameState temp(other);
+    swap(temp.hero, hero);
+    swap(temp.robots, robots);
+}
 
 void GameState::draw(QGraphicsScene *scene) const {
     scene->clear();
@@ -65,10 +74,9 @@ int GameState::countCollisions() {
             if (!(robots[i]->isJunk())){
                 numberDestroyed++;
 
-                //TODO: Is this correct?
                 Robot *tempptr = robots[i];
-                delete[] robots[i];
                 robots[i] = new Junk(*tempptr);
+                delete tempptr;
             }
         }
         i++;
