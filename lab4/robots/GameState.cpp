@@ -45,6 +45,7 @@ GameState& GameState::operator=(const GameState& other){
     GameState temp(other);
     swap(temp.hero, hero);
     swap(temp.robots, robots);
+    return *this;  //TODO: FIX IF BREAKS
 }
 
 void GameState::draw(QGraphicsScene *scene) const {

@@ -75,15 +75,12 @@ public:
 
 private:
 
-    //void GameState::copyOther(const GameState& other); //see cpp file
-
-    std::vector<Robot*> robots;  // the robots
-    //std::vector<Junk> junks;   // robots that have turned to junk
-    Hero* hero = nullptr;     // the hero
+    std::vector<Robot*> robots; // the robots
+    Hero* hero = nullptr;       // We initially changed hero to a pointer because we had trouble with methods who take both Hero and Robot objects
+                                // Using static memory instead would be more effective but we don't feel that the gain is enough to change working code
 
     // private helpers
     bool isEmpty(Unit *unit) const;
-    //bool junkAt(const Unit& unit) const;
     int countRobotsAt(Unit *unit) const;
 
 };

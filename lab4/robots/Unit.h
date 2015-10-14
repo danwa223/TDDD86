@@ -7,6 +7,7 @@
 #define UNIT_H
 
 #include "utilities.h"
+#include <QGraphicsScene>
 
 /* Root class for all pieces on the board.
  * Subclasses are Robot, Hero and Junk.
@@ -20,7 +21,7 @@ public:
 	/*
 	 * Draw the unit
 	 */
-	void draw(void) const;
+    virtual void draw(QGraphicsScene* scene) const {}
 
     /*
     * Return Point representation of Unit
@@ -35,12 +36,12 @@ public:
     /*
     * Can I catch u in one move?
     */
-    bool attacks(void); //should be void? was (const Unit &u) const before
+    virtual bool attacks(const Unit &u) const;
 
     /*
     * Take one step closer to u
     */
-	void moveTowards(void);
+    virtual void moveTowards(const Unit &u);
 
     /*
     * Teleport. Does not check for collision

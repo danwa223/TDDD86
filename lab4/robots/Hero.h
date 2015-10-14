@@ -16,12 +16,7 @@ public:
     /*
     * Draws this hero onto the given QGraphicsScene.
     */
-	virtual void draw(QGraphicsScene *scene) const;
-
-	/*
-	 *
-	 */
-    virtual void moveTowards(const Unit &u);
+    void draw(QGraphicsScene *scene) const;
 };
 
 #endif // HERO_H

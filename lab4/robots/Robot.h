@@ -16,19 +16,9 @@ public:
 	/*
 	* Draws this junk onto the given QGraphicsScene.
 	*/
-	virtual void draw(QGraphicsScene* scene) const;
+    void draw(QGraphicsScene* scene) const;
 
-	/*
-	 *
-	 */
-	virtual void moveTowards(const Unit& u);
-
-    /*
-     *
-     */
-    virtual bool attacks(const Unit &u) const;
-
-    virtual bool isJunk() const; //use void? I dont even...
+    virtual bool isJunk() const;
 };
 
 #endif // ROBOT_H

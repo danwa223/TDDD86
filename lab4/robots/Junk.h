@@ -18,18 +18,19 @@ public:
     /*
     * Draws this junk onto the given QGraphicsScene.
     */
-	virtual void draw(QGraphicsScene* scene) const;
-    /*
-     *
-     */
-    virtual void moveTowards(const Unit& u);
+    void draw(QGraphicsScene* scene) const;
 
     /*
-     *
+     * Overshadow moveTowards, junk cannot move
      */
-    virtual bool attacks(const Unit &u) const;
+    void moveTowards(const Unit& u);
 
-    virtual bool isJunk() const;
+    /*
+     * Overshadow attacks, junk can't do shit
+     */
+    bool attacks(const Unit &u) const;
+
+    bool isJunk() const;
 };
 
 #endif // JUNK_H

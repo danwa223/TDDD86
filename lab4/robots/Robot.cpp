@@ -14,20 +14,6 @@ void Robot::draw(QGraphicsScene *scene) const {
                              JUNK_RADIUS, JUNK_RADIUS), QPen(), QBrush(ROBOT_COLOR));
 }
 
-void Robot::moveTowards(const Unit& u) {
-
-    if (x > u.x) x--;
-    if (x < u.x) x++;
-    if (y > u.y) y--;
-    if (y < u.y) y++;
-    checkBounds();
-}
-
-bool Robot::attacks(const Unit &u) const{
-    return (abs(x - u.x) <= 1 &&
-            abs(y - u.y) <= 1);
-}
-
 bool Robot::isJunk() const{
     return false;
 }

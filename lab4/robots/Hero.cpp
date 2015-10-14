@@ -13,12 +13,3 @@ void Hero::draw(QGraphicsScene *scene) const {
     scene->addRect(QRectF(corner.x * UNIT_WIDTH, corner.y * UNIT_HEIGHT,
                           UNIT_WIDTH, UNIT_HEIGHT), Qt::NoPen, QBrush(HERO_COLOR));
 }
-
-void Hero::moveTowards(const Unit &u) {
-
-    if (x > u.x) x--;
-    if (x < u.x) x++;
-    if (y > u.y) y--;
-    if (y < u.y) y++;
-    checkBounds(); //dis is private
-}

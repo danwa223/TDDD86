@@ -45,6 +45,20 @@ double Unit::distanceTo(const Unit& u) const {
     return sqrt(dx * dx + dy * dy);
 }
 
+void Unit::moveTowards(const Unit &u) {
+
+    if (x > u.x) x--;
+    if (x < u.x) x++;
+    if (y > u.y) y--;
+    if (y < u.y) y++;
+    checkBounds();
+}
+
+bool Unit::attacks(const Unit &u) const{
+    return (abs(x - u.x) <= 1 &&
+            abs(y - u.y) <= 1);
+}
+
 /*
  * Put this unit inside playing field if outside
  */
