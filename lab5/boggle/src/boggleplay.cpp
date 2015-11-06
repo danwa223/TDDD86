@@ -1,7 +1,3 @@
-// You will edit and turn in this CPP file.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header and replace with your own
-
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -9,14 +5,56 @@
 #include "Boggle.h"
 #include "bogglemain.h"
 #include "strlib.h"
-// TODO: include any other header files you need
 
 /*
  * Plays one game of Boggle using the given boggle game state object.
  */
 void playOneGame(Boggle& boggle) {
-    // TODO: implement this function (and add any other functions you like to help you)
 
+    if (yesOrNo("Do you want to generate a random board? ")) {
+        cout << "Every day I'm shuffelin'...";
+        //shuffleCubes();
+    }
+    cout << "It's your turn!" << endl;
+
+    printBoard(boggle);
+
+    //printPlayerWords(some shitty array);
+
+    string word;
+
+    while(true) {
+        cout << "Type a word (or press Enter to end your turn): ";
+       getline(cin, word);
+
+        if (checkWord(word)) {
+            cout << "You found a new word! '" << word << "'" << endl;
+            }
+
+        cout << "That's not a word! Try again" << endl;
+    }
+
+}
+
+/*
+ * Prints the game board one time
+ */
+void printBoard(Boggle& boggle) {
+
+    // TODO: make sure this work for grid
+    for (int h = 0; h < 4; ++h) {
+        for (int w = 0; w < 4; ++w) {
+            cout << boggle.board[h][w];
+        }
+        cout << endl;
+    }
+}
+
+/*
+ * Return true if the string entered is a valid word according to the lexicon
+ */
+bool checkWord(string word) {
+    return lex.contains(word);
 }
 
 /*
