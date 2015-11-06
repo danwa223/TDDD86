@@ -21,7 +21,19 @@ static string CUBES[NUM_CUBES] = {        // the letters on all 6 sides of every
 
 // TODO: implement the members you declared in Boggle.h
 
-void shuffleCubes(){
-    gameArray[0][0] = "a";
-    shuffle(gameArray, 4, 4);
+void Boggle::throwDices(){
+    board.resize(4, 4);
+    int currentDice = 0;
+    for (int i = 0; i < 4; ++i){
+        for (int j = 0; j < 4; ++j){
+            int diceSideUp = randomInteger(0, CUBE_SIDES - 1);
+            board[i][j] = CUBES[currentDice][diceSideUp]; //converts a random member of every cube to a char on the board
+            currentDice++;
+        }
+    }
+}
+
+void Boggle::shuffleCubes(){
+
+    shuffle(board);
 }
