@@ -20,3 +20,8 @@ static string CUBES[NUM_CUBES] = {        // the letters on all 6 sides of every
 };
 
 // TODO: implement the members you declared in Boggle.h
+
+void shuffleCubes(){
+    gameArray[0][0] = "a";
+    shuffle(gameArray, 4, 4);
+}
