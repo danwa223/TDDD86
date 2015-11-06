@@ -18,12 +18,14 @@ public:
     const string DICTIONARY_FILE = "EnglishWords.dat";
     const int MIN_WORD_LENGTH = 4;
     const int BOARD_SIZE = 4;
+    string shuffledCubes = ""; //needs to be public to be accessed by boggleplay
 
     // TODO: decide the public member functions and declare them
 
 private:
     // TODO: decide the private member variables/functions and declare them
 
+    char gameArray[4][4];
 };
 
 #endif
