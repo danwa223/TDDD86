@@ -6,7 +6,7 @@
 
 #include <sstream>
 #include "Boggle.h"
-//#include "random.h"   TODO: no such file or directory
+#include "random.h"
 #include "shuffle.h"
 #include "strlib.h"
 

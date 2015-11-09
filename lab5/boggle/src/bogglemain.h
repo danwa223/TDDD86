@@ -16,6 +16,10 @@ using namespace std;
 void intro();
 void playOneGame(Boggle& boggle);
 bool yesOrNo(string prompt);
+
+//boggleplay declarations
+void printBoard(Board &board);
+bool checkWord(string word);
 void clearConsole();
 
 #endif
