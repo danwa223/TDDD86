@@ -42,6 +42,10 @@ Boggle::Boggle(string customGame){
     }
 }
 
+Grid<char> Boggle::getBoard(){
+    return board;
+}
+
 void Boggle::shuffleCubes(){
     shuffle(board);
 }
