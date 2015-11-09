@@ -27,7 +27,6 @@ public:
     string shuffledCubes = ""; //needs to be public to be accessed by boggleplay, is a representation for output
 
     // TODO: decide the public member functions and declare them
-    //void throwDices(); //pick a random letter frome each dice
     void shuffleCubes(); //randomization of cubes
     bool hasBeenUsed(string word);
     bool isLongEnough(string word);

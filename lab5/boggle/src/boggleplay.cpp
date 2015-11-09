@@ -2,14 +2,20 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+//#include <string>
 #include "Boggle.h"
 #include "bogglemain.h"
 #include "strlib.h"
 
+//using namespace std;
+
+//void printBoard(Board &board);
+//bool checkWord(string word);
+
 /*
  * Plays one game of Boggle using the given boggle game state object.
  */
-void playOneGame(Boggle& boggle) {
+void playOneGame(Boggle &boggle) {
 
     if (yesOrNo("Do you want to generate a random board? ")) {
         cout << "Every day I'm shuffelin'...";
@@ -17,7 +23,7 @@ void playOneGame(Boggle& boggle) {
     }
     cout << "It's your turn!" << endl;
 
-    printBoard(boggle);
+	printBoard(boggle.board);
 
     //printPlayerWords(some shitty array);
 
@@ -39,12 +45,12 @@ void playOneGame(Boggle& boggle) {
 /*
  * Prints the game board one time
  */
-void printBoard(Boggle& boggle) {
+void printBoard(Board& board) {
 
     // TODO: make sure this work for grid
     for (int h = 0; h < 4; ++h) {
         for (int w = 0; w < 4; ++w) {
-            cout << boggle.board[h][w];
+			cout << board[h][w];
         }
         cout << endl;
     }
