@@ -46,12 +46,12 @@ bool Boggle::hasBeenUsed(string word){
 bool Boggle::isLongEnough(string word){
     return (word.length() > 3); //returns true for words length 4 or greater
 }
-
+/*
 void Boggle::printGrid(){ //test helper
-    for (i = 0; i < 4; i++){
-        for (j = 0; j < 4; j++){
+	for (int i = 0; i < 4; i++){
+		for (int j = 0; j < 4; j++){
             std::cout << board[i][j].toString();
         }
         std::cout << endl;
     }
-}
+}*/

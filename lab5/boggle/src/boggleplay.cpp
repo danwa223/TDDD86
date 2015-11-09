@@ -9,6 +9,9 @@
 
 //using namespace std;
 
+void printBoard(Board &board);
+bool checkWord(string word);
+
 /*
  * Plays one game of Boggle using the given boggle game state object.
  */
