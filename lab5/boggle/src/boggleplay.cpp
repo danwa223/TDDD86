@@ -6,6 +6,7 @@
 #include "Boggle.h"
 #include "bogglemain.h"
 #include "strlib.h"
+//#include "lexicon.h"
 
 //using namespace std;
 
@@ -15,37 +16,47 @@
 /*
  * Plays one game of Boggle using the given boggle game state object.
  */
-void playOneGame(Boggle &boggle) {
+void playOneGame(Boggle& boggle) {
+
+	Lexicon lex("EnglishWords.dat");
 
     if (yesOrNo("Do you want to generate a random board? ")) {
-        cout << "Every day I'm shuffelin'...";
-        //shuffleCubes();
+		cout << "Every day I'm shuffelin'..." << endl;
+		boggle.shuffleCubes();
     }
-    cout << "It's your turn!" << endl;
+	cout << endl << "It's your turn!" << endl;
 
-	printBoard(boggle.board);
+	// the players turn
+	while(true) {
+		printBoard(boggle.board);
 
-    //printPlayerWords(some shitty array);
+		printPlayerWords(/*some shitty array*/);
+		printPlayerWords();
 
-    string word;
+		string word;
 
-    while(true) {
         cout << "Type a word (or press Enter to end your turn): ";
-       getline(cin, word);
+		getline(cin, word);
 
-        if (checkWord(word)) {
+		if (checkWord(lex, word)) {
             cout << "You found a new word! '" << word << "'" << endl;
             }
+		else {
+			cout << "That's not a word! Try again" << endl;
+		}
 
-        cout << "That's not a word! Try again" << endl;
+		// the players turn is over
+		if (cin.get() == '\n') break;
     }
+
+
 
 }
 
 /*
  * Prints the game board one time
  */
-void printBoard(Board& board) {
+void printBoard(Grid<char> board) {
 
     // TODO: make sure this work for grid
     for (int h = 0; h < 4; ++h) {
@@ -54,13 +65,25 @@ void printBoard(Board& board) {
         }
         cout << endl;
     }
+	cout << endl;
+}
+
+/*
+ * Print out the words the player have already found
+ */
+void printPlayerWords(){
+	cout << "Your words (" << "some int" << "): {";
+	for (int i = 0; i < 10; ++i){ //TODO: Later change this to actually take an array and print real words
+		cout << "\"" << " array[i]" << "\", ";
+	}
+	cout << "}" << endl;
 }
 
 /*
  * Return true if the string entered is a valid word according to the lexicon
  */
-bool checkWord(string word) {
-    return lex.contains(word);
+bool checkWord(Lexicon lex, string word) {
+	return lex.contains(word);
 }
 
 /*

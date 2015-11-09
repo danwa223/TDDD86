@@ -9,8 +9,9 @@
 #ifndef _bogglemain_h
 #define _bogglemain_h
 
-#include "Boggle.h"
 #include <string>
+#include "Boggle.h"
+#include "lexicon.h"
 using namespace std;
 
 void intro();
@@ -18,8 +19,9 @@ void playOneGame(Boggle& boggle);
 bool yesOrNo(string prompt);
 
 //boggleplay declarations
-void printBoard(Board &board);
-bool checkWord(string word);
+void printBoard(Grid<char> board);
+void printPlayerWords();
+bool checkWord(Lexicon lex, string word);
 void clearConsole();
 
 #endif
