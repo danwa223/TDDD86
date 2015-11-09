@@ -29,6 +29,8 @@ public:
 
 	Grid<char> getBoard();
     void shuffleCubes(); //randomization of cubes
+    Grid<char> getBoard();
+    set<string> getUsedWords();
     bool hasBeenUsed(string word);
     bool isLongEnough(string word);
     bool existsInLex(string word);

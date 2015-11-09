@@ -71,8 +71,12 @@ bool Boggle::hasBeenUsed(string word){
     return wordFound;
 }
 
+set<string> Boggle::getUsedWords(){
+    return usedWords;
+}
+
 /*
- * During play, checks if a given word fits the length criteria
+ * During play, checks if a given set<string> word fits the length criteria
  */
 bool Boggle::isLongEnough(string word){
     return (word.length() > 3); //returns true for words length 4 or greater
