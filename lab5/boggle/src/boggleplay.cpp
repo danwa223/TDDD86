@@ -33,7 +33,7 @@ void playOneGame(Boggle& boggle) {
 	while(true) {
 		printBoard(boggle.getBoard());
 
-		printPlayerWords(boggle.getUsedWords());
+		printWords(boggle.getUsedWords(), "Your ");
 		printScore(/*playerScore*/);
 
 		string word;
@@ -44,16 +44,13 @@ void playOneGame(Boggle& boggle) {
 		if (checkWord(lex, word)) {
 			if (boggle.hasBeenUsed(word)) {
 				cout << "You've already guessed that word! Try again!";
-			} else {
+			} else if (boggle.findWord(word)) {
 				cout << "You found a new word! '" << word << "'";
+			} else if (cin.get() == '\n') {
+				break;
+			} else {
+				cout << "That's not a word! Try again!";
 			}
-
-		// The players turn is over
-		} else if (cin.get() == '\n'){
-			break;
-		} else {
-			cout << "That's not a word! Try again!";
-		}
 
 		// Let's go another round!
 		if (cin.get() == '\n') clearConsole();
@@ -62,9 +59,9 @@ void playOneGame(Boggle& boggle) {
 	//TODO: Make this
 	// Computers turn
 	cout << "It's my turn!" << endl;
-	// recursive call
-	void printComputerWords(/*getComputerWords*/);
-	printScore(/*playerScore*/);
+	// recursive algoritm in boggle.cpp
+	//void printWords(boggle.getUsedWords(), "My"); //TODO: Change to computer
+	printScore(/*getComputerScore*/);
 
 	if (true/* computerScore > playerScore*/) {
 		cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
@@ -80,7 +77,6 @@ void playOneGame(Boggle& boggle) {
  */
 void printBoard(Grid<char> board) {
 
-    // TODO: make sure this work for grid
     for (int h = 0; h < 4; ++h) {
         for (int w = 0; w < 4; ++w) {
 			cout << board[h][w];
@@ -93,10 +89,10 @@ void printBoard(Grid<char> board) {
 /*
  * Print out the words the player have already found
  */
-void printPlayerWords(set<string> usedWords) {
+void printWords(set<string> usedWords, string who) {
 
 	if (usedWords.size()){
-		cout << "Your words (" << usedWords.size() << "): {";
+		cout << who << " words (" << usedWords.size() << "): {";
 
 		set<string>::iterator it;
 		for(it = usedWords.begin(); it != usedWords.end(); ++it){
@@ -104,20 +100,6 @@ void printPlayerWords(set<string> usedWords) {
 		}
 		cout << "}" << endl;
 	}
-}
-
-/*
- * Print out the words the CPU found
- * TODO: This currently use the players set, create a new for the computer
- */
-void printComputerWords(set<string> usedWords) {
-	cout << "My words (" << usedWords.size() << "): {";
-
-	set<string>::iterator it;
-	for(it = usedWords.begin(); it != usedWords.end(); ++it){
-		cout << "\"" << *it << "\", ";
-	}
-	cout << "}" << endl;
 }
 
 void printScore() {
