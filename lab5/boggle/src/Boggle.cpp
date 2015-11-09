@@ -6,7 +6,6 @@
 
 #include <sstream>
 #include "Boggle.h"
-//#include "random.h"   TODO: no such file or directory
 #include "shuffle.h"
 #include "strlib.h"
 
@@ -22,7 +21,7 @@ static string CUBES[NUM_CUBES] = {        // the letters on all 6 sides of every
 // TODO: implement the members you declared in Boggle.h
 
 void Boggle::throwDices(){
-    board.resize(4, 4);
+    board.resize(4, 4); //init the board, discard garbage values
     int currentDice = 0;
     for (int i = 0; i < 4; ++i){
         for (int j = 0; j < 4; ++j){
@@ -36,4 +35,22 @@ void Boggle::throwDices(){
 void Boggle::shuffleCubes(){
 
     shuffle(board);
+}
+
+bool Boggle::hasBeenUsed(string word){
+    //TODO: add word to used set
+    return usedWords.find(word) != usedWords.end(); //returns if word has already been used
+}
+
+bool Boggle::isLongEnough(string word){
+    return (word.length() > 3); //returns true for words length 4 or greater
+}
+
+void Boggle::printGrid(){ //test helper
+    for (i = 0; i < 4; i++){
+        for (j = 0; j < 4; j++){
+            std::cout << board[i][j].toString();
+        }
+        std::cout << endl;
+    }
 }

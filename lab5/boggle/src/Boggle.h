@@ -9,7 +9,9 @@
 
 #include <iostream>
 #include <string>
+#include <set>
 #include "../lib/StanfordCPPLib/grid.h"
+#include "../lib/StanfordCPPLib/random.h"
 
 // TODO: include any other header files you need
 
@@ -25,11 +27,13 @@ public:
     // TODO: decide the public member functions and declare them
     void throwDices(); //pick a random letter frome each dice
     void shuffleCubes(); //randomization of cubes
+    void printGrid();
 
 private:
     // TODO: decide the private member variables/functions and declare them
 
     Grid<char> board;
+    set<string> usedWords;
 };
 
 #endif
