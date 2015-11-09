@@ -105,7 +105,7 @@ bool Boggle::findWord(string &word){
     for (int row = 0; row < 4; row++){
         for (int col = 0; col < 4; col++){
             if (word[0] == board[row][col]){
-                prefix.push_back(word[0]);
+				prefix.push_back(word[0]);
                 found = playerRecursion(prefix, 1, row, col, word);
             }
         }
@@ -118,12 +118,14 @@ bool Boggle::findWord(string &word){
  */
 bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word){
     for (int i = row_pos - 1; i < row_pos + 2; i++){
-        for (int j = col_pos - 1; i < col_pos + 2; j++){
+		for (int j = col_pos - 1; j < col_pos + 2; j++){
+			//debug code
+			//cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
             if ((board.inBounds(i, j)) && (board[i][j] == word[index])){
                 prefix.push_back(board[i][j]);
                 if (existsInLex(prefix)){
                     index++;
-                    if (index == word.length()) return true;
+					if (index == word.length()) return true;
                     return playerRecursion(prefix, index, i, j, word);
                 }
                 prefix.pop_back();

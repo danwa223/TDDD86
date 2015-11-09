@@ -50,25 +50,26 @@ void playOneGame(Boggle& boggle) {
 				break;
 			} else {
 				cout << "That's not a word! Try again!";
-			}
+			} //TODO: Clean up here
 
 		// Let's go another round!
 		if (cin.get() == '\n') clearConsole();
-    }
+		}
 
-	//TODO: Make this
-	// Computers turn
-	cout << "It's my turn!" << endl;
-	// recursive algoritm in boggle.cpp
-	//void printWords(boggle.getUsedWords(), "My"); //TODO: Change to computer
-	printScore(/*getComputerScore*/);
+		//TODO: Make this
+		// Computers turn
+		cout << "It's my turn!" << endl;
+		// recursive algoritm in boggle.cpp
+		//void printWords(boggle.getUsedWords(), "My"); //TODO: Change to computer
+		printScore(/*getComputerScore*/);
 
-	if (true/* computerScore > playerScore*/) {
-		cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
-	} else if (true/* computerScore < playerScore*/) {
-		cout << "I lost? Impossible!" << endl;
-	} else {
-		cout << "wat";
+		if (true/* computerScore > playerScore*/) {
+			cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
+		} else if (true/* computerScore < playerScore*/) {
+			cout << "I lost? Impossible!" << endl;
+		} else {
+			cout << "wat";
+		}
 	}
 }
 
