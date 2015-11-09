@@ -91,3 +91,10 @@ bool Boggle::isLongEnough(string word){
 bool Boggle::existsInLex(string word){
     //TODO: Implement lexicon
 }
+
+/*
+ * TODO: Write stuff here, returns number of words
+ */
+void Boggle::playerBacktrack(board, string word){
+
+}

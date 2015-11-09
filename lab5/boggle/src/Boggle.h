@@ -37,6 +37,7 @@ private:
 
     Grid<char> board;
     set<string> usedWords;
+    set<string> wordsFoundOnBoard;
 };
 
 #endif
