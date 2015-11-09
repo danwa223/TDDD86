@@ -34,9 +34,7 @@ public:
     bool existsInLex(string word);
 
 private:
-    // TODO: decide the private member variables/functions and declare them
-
-	//Grid<char> board;
+	Grid<char> board;
     set<string> usedWords;
 };
 
