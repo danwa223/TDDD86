@@ -86,16 +86,63 @@ bool Boggle::isLongEnough(string word){
 }
 
 /*
- * During play, checks if a word exists in the given lexicon of words
+ * During play, checks if a prefix exists in the given lexicon of words, and if the prefix is a word, add it to the found words
  */
-bool Boggle::existsInLex(string word){
-    //TODO: Implement lexicon
-	return true;
+bool Boggle::existsInLex(string prefix){
+    Lexicon lex("EnglishWords.dat"); //initialization here a super bad thing?
+    if (lex.contains(prefix)){
+        wordsFoundOnBoard.insert(prefix); //will overwrite duplicate if any
+    }
+    return (lex.containsPrefix(prefix));
 }
 
 /*
- * TODO: Write stuff here, returns number of words
+ * For every member in board, if member is the start of the word we're looking for, perform recursion to see if it exists
  */
-void Boggle::playerBacktrack(board, string word){
-
+bool Boggle::findWord(string &word){
+    string prefix = "";
+    bool found = false;
+    for (int row = 0; row < 4; row++){
+        for (int col = 0; col < 4; col++){
+            if (word[0] == board[row][col]){
+                prefix.push_back(word[0]);
+                found = playerRecursion(prefix, 1, row, col, word);
+            }
+        }
+    }
+    return found;
 }
+
+/*
+ * Main recursion body, to be commented more toroughly
+ */
+bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word){
+    for (int i = row_pos - 1; i < row_pos + 2; i++){
+        for (int j = col_pos - 1; i < col_pos + 2; j++){
+            if ((board.inBounds(i, j)) && (board[i][j] == word[index])){
+                prefix.push_back(board[i][j]);
+                if (existsInLex(prefix)){
+                    index++;
+                    if (index == word.length()) return true;
+                    return playerRecursion(prefix, index, i, j, word);
+                }
+                prefix.pop_back();
+            }
+        }
+    }
+    return false;
+}
+
+/*string Boggle::recursion(string prefix, int row_pos, int col_pos){
+    for (int i = row_pos - 1; i < row_pos + 2; i++){
+        for (int j = col_pos - 1; i < col_pos + 2; j++){
+            if (board.inBounds(i, j)){
+                prefix.append(board[i][j]);
+                if (existsInLex(prefix)){
+                    recursion(prefix, row, col);
+                }
+                prefix.pop_back();
+            }
+        }
+    }
+}*/

@@ -12,6 +12,7 @@
 #include <set>
 #include "../lib/StanfordCPPLib/grid.h"
 #include "../lib/StanfordCPPLib/random.h"
+#include "../lib/StanfordCPPLib/lexicon.h"
 
 // TODO: include any other header files you need
 
@@ -31,11 +32,17 @@ public:
 	void shuffleCubes(); //randomization of cubes
     bool hasBeenUsed(string word);
     bool isLongEnough(string word);
-	bool existsInLex(string word);
+    bool existsInLex(string prefix);
+    void playerBacktrack(string word);
+    bool findWord(string &word);
 
 private:
 	Grid<char> board;
     set<string> usedWords;
+
+    bool playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word);
+
+    //would like to initialize a lexicon here to be global in Boggle.cpp
     set<string> wordsFoundOnBoard;
 };
 
