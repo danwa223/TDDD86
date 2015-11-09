@@ -28,7 +28,7 @@ void playOneGame(Boggle& boggle) {
 
 	// the players turn
 	while(true) {
-		printBoard(boggle.board);
+		printBoard(boggle.getBoard());
 
 		printPlayerWords(/*some shitty array*/);
 		printPlayerWords();
@@ -40,6 +40,7 @@ void playOneGame(Boggle& boggle) {
 
 		if (checkWord(lex, word)) {
             cout << "You found a new word! '" << word << "'" << endl;
+			boggle.usedWords.insert(word);
             }
 		else {
 			cout << "That's not a word! Try again" << endl;
