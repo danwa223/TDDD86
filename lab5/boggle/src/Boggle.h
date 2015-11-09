@@ -25,9 +25,9 @@ public:
     const int MIN_WORD_LENGTH = 4;
     const int BOARD_SIZE = 4;
     string shuffledCubes = ""; //needs to be public to be accessed by boggleplay, is a representation for output
-	Grid<char> board;
 
-    // TODO: decide the public member functions and declare them
+
+	Grid<char> getBoard();
     void shuffleCubes(); //randomization of cubes
     bool hasBeenUsed(string word);
     bool isLongEnough(string word);
