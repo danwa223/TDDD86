@@ -21,17 +21,20 @@ void playOneGame(Boggle& boggle) {
 	Lexicon lex("EnglishWords.dat");
 
     if (yesOrNo("Do you want to generate a random board? ")) {
-		cout << "Every day I'm shuffelin'..." << endl;
+		cout << "Every day I'm shufflin'..." << endl;
 		boggle.shuffleCubes();
     }
+
+	clearConsole();
+
 	cout << endl << "It's your turn!" << endl;
 
-	// the players turn
+	// Players turn
 	while(true) {
-		printBoard(boggle.board);
+		printBoard(boggle.getBoard());
 
-		printPlayerWords(/*some shitty array*/);
-		printPlayerWords();
+		printPlayerWords(boggle.getUsedWords());
+		printScore(/*playerScore*/);
 
 		string word;
 
@@ -39,18 +42,37 @@ void playOneGame(Boggle& boggle) {
 		getline(cin, word);
 
 		if (checkWord(lex, word)) {
-            cout << "You found a new word! '" << word << "'" << endl;
-            }
-		else {
-			cout << "That's not a word! Try again" << endl;
+			if (boggle.hasBeenUsed(word)) {
+				cout << "You've already guessed that word! Try again!";
+			} else {
+				cout << "You found a new word! '" << word << "'";
+			}
+
+		// The players turn is over
+		} else if (cin.get() == '\n'){
+			break;
+		} else {
+			cout << "That's not a word! Try again!";
 		}
 
-		// the players turn is over
-		if (cin.get() == '\n') break;
+		// Let's go another round!
+		if (cin.get() == '\n') clearConsole();
     }
 
+	//TODO: Make this
+	// Computers turn
+	cout << "It's my turn!" << endl;
+	// recursive call
+	void printComputerWords(/*getComputerWords*/);
+	printScore(/*playerScore*/);
 
-
+	if (true/* computerScore > playerScore*/) {
+		cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
+	} else if (true/* computerScore < playerScore*/) {
+		cout << "I lost? Impossible!" << endl;
+	} else {
+		cout << "wat";
+	}
 }
 
 /*
@@ -71,12 +93,35 @@ void printBoard(Grid<char> board) {
 /*
  * Print out the words the player have already found
  */
-void printPlayerWords(){
-	cout << "Your words (" << "some int" << "): {";
-	for (int i = 0; i < 10; ++i){ //TODO: Later change this to actually take an array and print real words
-		cout << "\"" << " array[i]" << "\", ";
+void printPlayerWords(set<string> usedWords) {
+
+	if (usedWords.size()){
+		cout << "Your words (" << usedWords.size() << "): {";
+
+		set<string>::iterator it;
+		for(it = usedWords.begin(); it != usedWords.end(); ++it){
+			cout << "\"" << *it << "\", ";
+		}
+		cout << "}" << endl;
+	}
+}
+
+/*
+ * Print out the words the CPU found
+ * TODO: This currently use the players set, create a new for the computer
+ */
+void printComputerWords(set<string> usedWords) {
+	cout << "My words (" << usedWords.size() << "): {";
+
+	set<string>::iterator it;
+	for(it = usedWords.begin(); it != usedWords.end(); ++it){
+		cout << "\"" << *it << "\", ";
 	}
 	cout << "}" << endl;
+}
+
+void printScore() {
+
 }
 
 /*

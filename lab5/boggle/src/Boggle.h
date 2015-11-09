@@ -28,14 +28,13 @@ public:
 
     Grid<char> getBoard();
     set<string> getUsedWords();
-    void shuffleCubes(); //randomization of cubes
+	void shuffleCubes(); //randomization of cubes
     bool hasBeenUsed(string word);
     bool isLongEnough(string word);
-    bool existsInLex(string word);
+	bool existsInLex(string word);
 
 private:
-
-    Grid<char> board;
+	Grid<char> board;
     set<string> usedWords;
     set<string> wordsFoundOnBoard;
 };

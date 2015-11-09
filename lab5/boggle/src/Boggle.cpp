@@ -90,6 +90,7 @@ bool Boggle::isLongEnough(string word){
  */
 bool Boggle::existsInLex(string word){
     //TODO: Implement lexicon
+	return true;
 }
 
 /*
