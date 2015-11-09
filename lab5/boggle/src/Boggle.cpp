@@ -1,12 +1,9 @@
-// This is the .cpp file you will edit and turn in.
-// We have provided a minimal skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header and replace it with your own
+//TODO: Add const where appropriate
 
 #include <sstream>
+#include <stdio.h>
+#include <ctype.h>
 #include "Boggle.h"
-//#include "random.h"
 #include "shuffle.h"
 #include "strlib.h"
 
@@ -19,12 +16,9 @@ static string CUBES[NUM_CUBES] = {        // the letters on all 6 sides of every
    "EIOSST", "ELRTTY", "HIMNQU", "HLNNRZ"
 };
 
-// TODO: implement the members you declared in Boggle.h
-
-/*Boggle::Boggle(){
-    throwDices();
-}*/
-
+/*
+ * Default constructor for a board given the cubes in CUBES.
+ */
 Boggle::Boggle(){
     board.resize(4, 4); //init the board, discard garbage values
     int currentDice = 0;
@@ -35,19 +29,58 @@ Boggle::Boggle(){
             currentDice++;
         }
     }
-    shuffleCubes();
+}
+/*
+ * Custom constructor for testing purposes, takes a custom string and uses the 16 first characters to create a board
+ */
+Boggle::Boggle(string customGame){
+    board.resize(4, 4);
+    int index = 0;
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            char c = customGame[index];
+            putchar(toupper(c));
+            board[i][j] = c;
+            index++;
+        }
+    }
 }
 
-void Boggle::shuffleCubes(){
+/*
+ * Getter for the console output in boggleplay.cpp
+ */
+Grid<char> Boggle::getBoard(){
+    return board;
+}
 
+/*
+ * Calls the randomization in shuffle.h using the Grid template (board is a grid)
+ */
+void Boggle::shuffleCubes(){
     shuffle(board);
 }
 
+/*
+ * During play, checks if a given word has already been played
+ */
 bool Boggle::hasBeenUsed(string word){
-    //TODO: add word to used set
-    return usedWords.find(word) != usedWords.end(); //returns if word has already been used
+    bool wordFound = usedWords.find(word) != usedWords.end(); //true if word has already been used
+    if (not (wordFound)){
+        usedWords.insert(word); //doing this here keeps the logic in Boggle.cpp and lets boggleplay.cpp not worry about it
+    }
+    return wordFound;
 }
 
+/*
+ * During play, checks if a given word fits the length criteria
+ */
 bool Boggle::isLongEnough(string word){
     return (word.length() > 3); //returns true for words length 4 or greater
+}
+
+/*
+ * During play, checksi if a word exists in the given lexicon of words
+ */
+bool Boggle::existsInLex(string word){
+    //TODO: Implement lexicon
 }

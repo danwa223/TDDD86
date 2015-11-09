@@ -20,6 +20,7 @@ using namespace std;
 class Boggle {
 public:
     Boggle();   //constructor
+    Boggle(string customGame); //custom board constructor
     const string DICTIONARY_FILE = "EnglishWords.dat";
     const int MIN_WORD_LENGTH = 4;
     const int BOARD_SIZE = 4;
@@ -30,6 +31,7 @@ public:
     void shuffleCubes(); //randomization of cubes
     bool hasBeenUsed(string word);
     bool isLongEnough(string word);
+    bool existsInLex(string word);
 
 private:
     // TODO: decide the private member variables/functions and declare them
