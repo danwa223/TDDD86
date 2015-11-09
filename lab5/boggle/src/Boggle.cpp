@@ -1,10 +1,8 @@
-// This is the .cpp file you will edit and turn in.
-// We have provided a minimal skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header and replace it with your own
+//TODO: Add const where appropriate
 
 #include <sstream>
+#include <stdio.h>
+#include <ctype.h>
 #include "Boggle.h"
 #include "shuffle.h"
 #include "strlib.h"
@@ -37,16 +35,35 @@ Boggle::Boggle(){
     shuffleCubes();
 }
 
-void Boggle::shuffleCubes(){
+Boggle::Boggle(string customGame){
+    board.resize(4, 4);
+    int index = 0;
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            char c = customGame[index];
+            putchar(toupper(c));
+            board[i][j] = c;
+            index++;
+        }
+    }
+}
 
+void Boggle::shuffleCubes(){
     shuffle(board);
 }
 
 bool Boggle::hasBeenUsed(string word){
-    //TODO: add word to used set
-    return usedWords.find(word) != usedWords.end(); //returns if word has already been used
+    bool wordFound = usedWords.find(word) != usedWords.end(); //true if word has already been used
+    if (not (wordFound)){
+        usedWords.insert(word); //doing this here keeps the logic in Boggle.cpp and lets boggleplay.cpp not worry about it
+    }
+    return wordFound;
 }
 
 bool Boggle::isLongEnough(string word){
     return (word.length() > 3); //returns true for words length 4 or greater
+}
+
+bool Boggle::hasBeenPlayed(string word){
+    //TODO: Implement lexicon
 }
