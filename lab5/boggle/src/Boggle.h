@@ -27,6 +27,8 @@ public:
     string shuffledCubes = ""; //needs to be public to be accessed by boggleplay, is a representation for output
 
     void shuffleCubes(); //randomization of cubes
+    Grid<char> getBoard();
+    set<string> getUsedWords();
     bool hasBeenUsed(string word);
     bool isLongEnough(string word);
     bool existsInLex(string word);
