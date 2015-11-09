@@ -16,6 +16,9 @@ static string CUBES[NUM_CUBES] = {        // the letters on all 6 sides of every
    "EIOSST", "ELRTTY", "HIMNQU", "HLNNRZ"
 };
 
+/*
+ * Default constructor for a board given the cubes in CUBES.
+ */
 Boggle::Boggle(){
     board.resize(4, 4); //init the board, discard garbage values
     int currentDice = 0;
@@ -26,9 +29,10 @@ Boggle::Boggle(){
             currentDice++;
         }
     }
-    shuffleCubes();
 }
-
+/*
+ * Custom constructor for testing purposes, takes a custom string and uses the 16 first characters to create a board
+ */
 Boggle::Boggle(string customGame){
     board.resize(4, 4);
     int index = 0;
@@ -42,14 +46,23 @@ Boggle::Boggle(string customGame){
     }
 }
 
+/*
+ * Getter for the console output in boggleplay.cpp
+ */
 Grid<char> Boggle::getBoard(){
     return board;
 }
 
+/*
+ * Calls the randomization in shuffle.h using the Grid template (board is a grid)
+ */
 void Boggle::shuffleCubes(){
     shuffle(board);
 }
 
+/*
+ * During play, checks if a given word has already been played
+ */
 bool Boggle::hasBeenUsed(string word){
     bool wordFound = usedWords.find(word) != usedWords.end(); //true if word has already been used
     if (not (wordFound)){
@@ -58,10 +71,16 @@ bool Boggle::hasBeenUsed(string word){
     return wordFound;
 }
 
+/*
+ * During play, checks if a given word fits the length criteria
+ */
 bool Boggle::isLongEnough(string word){
     return (word.length() > 3); //returns true for words length 4 or greater
 }
 
-bool Boggle::hasBeenPlayed(string word){
+/*
+ * During play, checksi if a word exists in the given lexicon of words
+ */
+bool Boggle::existsInLex(string word){
     //TODO: Implement lexicon
 }

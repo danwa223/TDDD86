@@ -30,7 +30,7 @@ public:
     void shuffleCubes(); //randomization of cubes
     bool hasBeenUsed(string word);
     bool isLongEnough(string word);
-    bool hasBeenPlayed(string word);
+    bool existsInLex(string word);
 
 private:
     // TODO: decide the private member variables/functions and declare them
