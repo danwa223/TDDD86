@@ -47,13 +47,6 @@ Boggle::Boggle(string customGame){
 }
 
 /*
- * Getter for the console output in boggleplay.cpp
- */
-Grid<char> Boggle::getBoard(){
-    return board;
-}
-
-/*
  * Calls the randomization in shuffle.h using the Grid template (board is a grid)
  */
 void Boggle::shuffleCubes(){
@@ -71,10 +64,6 @@ bool Boggle::hasBeenUsed(string word){
     return wordFound;
 }
 
-set<string> Boggle::getUsedWords(){
-    return usedWords;
-}
-
 /*
  * During play, checks if a given set<string> word fits the length criteria
  */
@@ -87,4 +76,13 @@ bool Boggle::isLongEnough(string word){
  */
 bool Boggle::existsInLex(string word){
     //TODO: Implement lexicon
+	return true;
+}
+
+Grid<char> Boggle::getBoard(){
+	return board;
+}
+
+set<string> Boggle::getUsedWords(){
+	return usedWords;
 }

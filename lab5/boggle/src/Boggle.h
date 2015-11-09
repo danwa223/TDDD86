@@ -26,14 +26,12 @@ public:
     const int BOARD_SIZE = 4;
     string shuffledCubes = ""; //needs to be public to be accessed by boggleplay, is a representation for output
 
-
-	Grid<char> getBoard();
-    void shuffleCubes(); //randomization of cubes
-    Grid<char> getBoard();
-    set<string> getUsedWords();
+	void shuffleCubes(); //randomization of cubes
     bool hasBeenUsed(string word);
     bool isLongEnough(string word);
     bool existsInLex(string word);
+	Grid<char> getBoard();
+	set<string> getUsedWords();
 
 private:
 	Grid<char> board;

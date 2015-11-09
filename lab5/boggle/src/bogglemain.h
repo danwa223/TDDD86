@@ -20,7 +20,9 @@ bool yesOrNo(string prompt);
 
 //boggleplay declarations
 void printBoard(Grid<char> board);
-void printPlayerWords();
+void printPlayerWords(set<string> words);
+void printComputerWords(/*getComputerWords*/);
+void printScore();
 bool checkWord(Lexicon lex, string word);
 void clearConsole();
 
