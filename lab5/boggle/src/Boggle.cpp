@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "Boggle.h"
-//#include "random.h"
 #include "shuffle.h"
 #include "strlib.h"
 
@@ -16,12 +15,6 @@ static string CUBES[NUM_CUBES] = {        // the letters on all 6 sides of every
    "DISTTY", "EEGHNW", "EEINSU", "EHRTVW",
    "EIOSST", "ELRTTY", "HIMNQU", "HLNNRZ"
 };
-
-// TODO: implement the members you declared in Boggle.h
-
-/*Boggle::Boggle(){
-    throwDices();
-}*/
 
 Boggle::Boggle(){
     board.resize(4, 4); //init the board, discard garbage values
