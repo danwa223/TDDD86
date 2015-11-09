@@ -19,15 +19,17 @@ using namespace std;
 
 class Boggle {
 public:
+    Boggle();   //constructor
     const string DICTIONARY_FILE = "EnglishWords.dat";
     const int MIN_WORD_LENGTH = 4;
     const int BOARD_SIZE = 4;
     string shuffledCubes = ""; //needs to be public to be accessed by boggleplay, is a representation for output
 
     // TODO: decide the public member functions and declare them
-    void throwDices(); //pick a random letter frome each dice
+    //void throwDices(); //pick a random letter frome each dice
     void shuffleCubes(); //randomization of cubes
-    void printGrid();
+    bool hasBeenUsed(string word);
+    bool isLongEnough(string word);
 
 private:
     // TODO: decide the private member variables/functions and declare them
