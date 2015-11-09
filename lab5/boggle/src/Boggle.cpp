@@ -21,7 +21,11 @@ static string CUBES[NUM_CUBES] = {        // the letters on all 6 sides of every
 
 // TODO: implement the members you declared in Boggle.h
 
-void Boggle::throwDices(){
+/*Boggle::Boggle(){
+    throwDices();
+}*/
+
+Boggle::Boggle(){
     board.resize(4, 4); //init the board, discard garbage values
     int currentDice = 0;
     for (int i = 0; i < 4; ++i){
@@ -31,6 +35,7 @@ void Boggle::throwDices(){
             currentDice++;
         }
     }
+    shuffleCubes();
 }
 
 void Boggle::shuffleCubes(){
@@ -46,12 +51,3 @@ bool Boggle::hasBeenUsed(string word){
 bool Boggle::isLongEnough(string word){
     return (word.length() > 3); //returns true for words length 4 or greater
 }
-/*
-void Boggle::printGrid(){ //test helper
-	for (int i = 0; i < 4; i++){
-		for (int j = 0; j < 4; j++){
-            std::cout << board[i][j].toString();
-        }
-        std::cout << endl;
-    }
-}*/
