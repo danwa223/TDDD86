@@ -29,7 +29,6 @@ void playOneGame(Boggle& boggle) {
 
 	cout << endl << "It's your turn!" << endl;
 
-	bool running = true;
 	// Players turn
 	while(true) {
 		printBoard(boggle.getBoard());
