@@ -79,7 +79,6 @@ int Boggle::calcScore(string who) {
 		for(it = usedWords.begin(); it != usedWords.end(); ++it){
 			str = *it;
 			if (str.length() >= 4) {
-				cout << str.length();
 				score += str.length() - 3;
 			}
 		}
