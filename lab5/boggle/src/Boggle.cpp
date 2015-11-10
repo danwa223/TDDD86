@@ -136,7 +136,6 @@ bool Boggle::findWord(string &word){
     for (unsigned int letter = 0; letter < word.length(); letter++){ //uppercase the word
         word[letter] = toupper(word[letter]);
     }
-    cout << word << endl;
     bool found = false;
     for (int row = 0; row < 4; row++){ //first iteration, check if word start is in board
         for (int col = 0; col < 4; col++){
@@ -162,11 +161,11 @@ bool Boggle::findWord(string &word){
 //YOII
 //IIII
 //YMOI
-//heustdlapieejenh
-//HEUS
-//TDLA
-//PIEE
-//JENH
+//hiueadlalimajegr
+//HIUE
+//ADLA
+//LIMA
+//JEGR
 /*
  * Recursive search for the player. Will not look up every word on the table, will only look for the word the player gives as an argument
  */
