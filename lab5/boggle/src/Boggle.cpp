@@ -164,12 +164,22 @@ bool Boggle::findWord(string &word){
     return found;
 }
 
+//heustdlapieajegr
+
+//leartdpalaiejegr  //did not find lear
+//LEAR
+//TDPA
+//LAIE
+//JEGR
+
+//leariiiiiiiiiiii  //found lear
+
 //rimiyoiiiiiiymoi
 //RIMI
 //YOII
 //IIII
 //YMOI
-//heustdlapieejenh
+//heustdlapieajegr
 //HEUS
 //TDLA
 //PIEE

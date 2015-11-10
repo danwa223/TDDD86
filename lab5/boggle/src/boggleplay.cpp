@@ -36,7 +36,6 @@ void playOneGame(Boggle& boggle) {
 				}
 				if (asd) {
 					boggle.boardOverwrite(str);
-					cout << "overwrote";
 					break;
 				} else {
 					cout << "A-Z, lower or upper case, you dingus: ";
@@ -59,7 +58,7 @@ void playOneGame(Boggle& boggle) {
 	int pscore, cscore;
 
 	// Players turn
-/*	while(true) {
+	while(true) {
 		printBoard(boggle.getBoard());
 
 		printWords(boggle.getUsedWords(), "Your ");
@@ -92,8 +91,8 @@ void playOneGame(Boggle& boggle) {
 		if (cin.get() == '\n') clearConsole();
 		cout << endl;
 	}
-*/
-	// Computers turn
+
+/*	// Computers turn
 	cout << "It's my turn!" << endl;
 	boggle.findWords();
 	printWords(boggle.getCompUsedWords(), "My");
@@ -108,7 +107,7 @@ void playOneGame(Boggle& boggle) {
 	} else {
 		cout << "wat";
 	}
-
+*/
 	//clearing the list of used word in case we want to play another round
 	boggle.clearUsedWords();
 }
