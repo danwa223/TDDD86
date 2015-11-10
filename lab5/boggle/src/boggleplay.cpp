@@ -23,8 +23,30 @@ void playOneGame(Boggle& boggle) {
 	if (yesOrNo("Do you want to create a custom board? ")) {
 		string str;
 		cout << "Enter a string of 16 characters: ";
-		getline(cin, str);
-		boggle.boardOverwrite(str);
+
+		// This monster of a code block make sure that the input provided by the user is correct
+		bool asd = true;
+		while(true){
+			getline(cin, str);
+			if (str.length() == 16) {
+				for (int i = 0; i < 16; ++i) {
+					if (!((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))) {
+						asd = false;
+					}
+				}
+				if (asd) {
+					boggle.boardOverwrite(str);
+					cout << "overwrote";
+					break;
+				} else {
+					cout << "A-Z, lower or upper case, you dingus: ";
+					asd = true;
+				}
+			} else {
+				cout << "16 characters, not " << str.length() << ": ";
+			}
+		}
+
 	} else if (yesOrNo("Do you want to generate a random board? ")) {
 		cout << "Every day I'm shufflin'..." << endl;
 		boggle.shuffleCubes();
