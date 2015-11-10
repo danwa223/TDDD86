@@ -37,14 +37,16 @@ public:
     bool existsInLex(string prefix);
     void playerBacktrack(string word);
     bool findWord(string &word);
+    void findWords();
 	int calcScore(string who);
 
 private:
 	Grid<char> board;
-    set<string> usedWords;
-	set<string> compUsedWords; //for future use
+    set<string> usedWords; //contains all legit words the player has found
+    set<string> compUsedWords; //words for CPU player after player player has played
 
     bool playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word);
+    void computerRecursion(string prefix, int row_pos, int col_pos);
 
     //would like to initialize a lexicon here to be global in Boggle.cpp
     set<string> wordsFoundOnBoard;

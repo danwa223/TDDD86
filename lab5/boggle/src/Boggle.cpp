@@ -188,3 +188,43 @@ bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int
     }
     return false;
 }
+
+/*
+ * Computer version of find word
+ */
+void Boggle::findWords(){
+    string prefix = "";
+    for (int row = 0; row < 4; row++){ //first iteration, check if word start is in board
+        for (int col = 0; col < 4; col++){
+            char c = board[row][col];
+            prefix.push_back(c);
+            for (int i = row - 1; i < row + 2; i++){ //second iteration, check for all neighbours of first word
+                for (int j = col - 1; j < col + 2; j++){
+                    if (board.inBounds(i, j)){ //for every neighbour found, recursive loop the rest
+                        prefix.push_back(c);
+                        computerRecursion(prefix, i, j);
+                        prefix.pop_back();
+                    }
+                }
+            }
+            prefix.pop_back();
+        }
+    }
+}
+
+void Boggle::computerRecursion(string prefix, int row_pos, int col_pos){
+    for (int i = row_pos - 1; i < row_pos + 2; i++){
+        for (int j = col_pos - 1; j < col_pos + 2; j++){
+            if ((board.inBounds(i, j)) && ((i != row_pos) || (j != col_pos))){ //found a valid neighbour
+                prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
+                if (!(usedWords.find(prefix) != usedWords.end()) && existsInLex(prefix) && isLongEnough(prefix)){ //check if prefix is legit so that the computer can't cheat
+                    compUsedWords.insert(prefix); //if the player hasn't used the word already, add it to the PC scoreboard
+                }
+                if (existsInLex(prefix)){
+                    return computerRecursion(prefix, i, j);
+                }
+                prefix.pop_back();
+            }
+        }
+    }
+}
