@@ -96,9 +96,9 @@ bool Boggle::isLongEnough(string word){
  * During play, checks if a prefix exists in the given lexicon of words, and if the prefix is a word, add it to the found words
  */
 bool Boggle::existsInLex(string prefix){
-    Lexicon lex("EnglishWords.dat"); //initialization here a super bad thing?
+    Lexicon lex("EnglishWords.dat"); //initialization here a super bad thing? Could not do in .h file
     if (lex.contains(prefix)){
-        wordsFoundOnBoard.insert(prefix); //will overwrite duplicate if any
+        wordsFoundOnBoard.insert(prefix); //will overwrite duplicate if any, used by both recursive searches but perhaps not needed for player
     }
     return (lex.containsPrefix(prefix));
 }
@@ -121,16 +121,16 @@ bool Boggle::findWord(string &word){
 }
 
 /*
- * Main recursion body, to be commented more toroughly
+ * Recursive search for the player. Will not look up every word on the table, will only look for the word the player gives as an argument
  */
 bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word){
     for (int i = row_pos - 1; i < row_pos + 2; i++){
 		for (int j = col_pos - 1; j < col_pos + 2; j++){
 			//debug code
-			//cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
-            if ((board.inBounds(i, j)) && (board[i][j] == word[index])){
-                prefix.push_back(board[i][j]);
-                if (existsInLex(prefix)){
+            cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
+            if ((board.inBounds(i, j)) && (board[i][j] == word[index])){ //found a neighbour that has the next letter we are looking for
+                prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
+                if (existsInLex(prefix)){ //check if prefix is legit so that the player can't cheat
                     index++;
 					if (index == word.length()) return true;
                     return playerRecursion(prefix, index, i, j, word);
