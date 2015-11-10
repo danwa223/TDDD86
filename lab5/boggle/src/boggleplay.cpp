@@ -29,12 +29,15 @@ void playOneGame(Boggle& boggle) {
 
 	cout << endl << "It's your turn!" << endl;
 
+	int pscore, cscore;
+
 	// Players turn
 	while(true) {
 		printBoard(boggle.getBoard());
 
 		printWords(boggle.getUsedWords(), "Your ");
 		cout << "Your score: " << boggle.calcScore("p") << endl;
+		pscore = boggle.calcScore("p");
 
 		string word;
 
@@ -44,16 +47,22 @@ void playOneGame(Boggle& boggle) {
 		if (word == "") {
 			cout << endl;
 			break;
-        } else if (boggle.hasBeenUsed(word)){
-            cout << "You've alredy guessed that word! Try again!";
-        } else if ((checkWord(lex, word)) && (not (boggle.hasBeenUsed(word))) && boggle.findWord(word)) {
-            cout << "You found a new word! '" << word << "'";
+		} else if (checkWord(lex, word)) {
+			if (boggle.findWord(word)) {
+				if (boggle.hasBeenUsed(word)) {
+					cout << "You've already guessed that word! Try again!";
+				} else {
+					cout << "You found a new word! '" << word << "'";
+				}
+			} else {
+				cout << "Word not in board! Try again!";
+            }
 		} else {
 			cout << "That's not a word! Try again!";
 		}
 
 		// Let's go another round!
-		//if (cin.get() == '\n') clearConsole();
+		if (cin.get() == '\n') clearConsole();
 		cout << endl;
 	}
 
@@ -63,10 +72,12 @@ void playOneGame(Boggle& boggle) {
 	// recursive algoritm in boggle.cpp
 	//void printWords(boggle.getUsedWords(), "My"); //TODO: Change to computer
 	cout << "My score: " << boggle.calcScore("c") << endl;
+	cscore = boggle.calcScore("c");
 
-	if (true/* computerScore > playerScore*/) {
+
+	if (cscore > pscore) {
 		cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
-	} else if (true/* computerScore < playerScore*/) {
+	} else if (cscore < pscore) {
 		cout << "I lost? Impossible!" << endl;
 	} else {
 		cout << "wat";
