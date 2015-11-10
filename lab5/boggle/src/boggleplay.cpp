@@ -44,12 +44,10 @@ void playOneGame(Boggle& boggle) {
 		if (word == "") {
 			cout << endl;
 			break;
-		} else if (checkWord(lex, word)) {
-			if (boggle.hasBeenUsed(word)) {
-				cout << "You've already guessed that word! Try again!";
-			} else if (boggle.findWord(word)) {
-				cout << "You found a new word! '" << word << "'";
-			}
+        } else if (boggle.hasBeenUsed(word)){
+            cout << "You've alredy guessed that word! Try again!";
+        } else if ((checkWord(lex, word)) && (not (boggle.hasBeenUsed(word))) && boggle.findWord(word)) {
+            cout << "You found a new word! '" << word << "'";
 		} else {
 			cout << "That's not a word! Try again!";
 		}
