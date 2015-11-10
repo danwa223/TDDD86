@@ -29,6 +29,7 @@ void playOneGame(Boggle& boggle) {
 
 	cout << endl << "It's your turn!" << endl;
 
+	bool running = true;
 	// Players turn
 	while(true) {
 		printBoard(boggle.getBoard());
@@ -41,36 +42,41 @@ void playOneGame(Boggle& boggle) {
         cout << "Type a word (or press Enter to end your turn): ";
 		getline(cin, word);
 
-		if (checkWord(lex, word)) {
+		if (word == "") {
+			cout << endl;
+			break;
+		} else if (checkWord(lex, word)) {
 			if (boggle.hasBeenUsed(word)) {
 				cout << "You've already guessed that word! Try again!";
 			} else if (boggle.findWord(word)) {
 				cout << "You found a new word! '" << word << "'";
-			} else if (cin.get() == '\n') {
-				break;
-			} else {
-				cout << "That's not a word! Try again!";
-			} //TODO: Clean up here
+			}
+		} else {
+			cout << "That's not a word! Try again!";
+		}
 
 		// Let's go another round!
 		if (cin.get() == '\n') clearConsole();
-		}
-
-		//TODO: Make this
-		// Computers turn
-		cout << "It's my turn!" << endl;
-		// recursive algoritm in boggle.cpp
-		//void printWords(boggle.getUsedWords(), "My"); //TODO: Change to computer
-		printScore(/*getComputerScore*/);
-
-		if (true/* computerScore > playerScore*/) {
-			cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
-		} else if (true/* computerScore < playerScore*/) {
-			cout << "I lost? Impossible!" << endl;
-		} else {
-			cout << "wat";
-		}
+		cout << endl;
 	}
+
+	//TODO: Make this
+	// Computers turn
+	cout << "It's my turn!" << endl;
+	// recursive algoritm in boggle.cpp
+	//void printWords(boggle.getUsedWords(), "My"); //TODO: Change to computer
+	printScore(/*getComputerScore*/);
+
+	if (true/* computerScore > playerScore*/) {
+		cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
+	} else if (true/* computerScore < playerScore*/) {
+		cout << "I lost? Impossible!" << endl;
+	} else {
+		cout << "wat";
+	}
+
+	//clearing the list of used word in case we want to play another round
+	boggle.clearUsedWords();
 }
 
 /*

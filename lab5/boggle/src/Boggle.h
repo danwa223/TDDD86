@@ -31,6 +31,7 @@ public:
     set<string> getUsedWords();
 	void shuffleCubes(); //randomization of cubes
     bool hasBeenUsed(string word);
+	void clearUsedWords();
     bool isLongEnough(string word);
     bool existsInLex(string prefix);
     void playerBacktrack(string word);

@@ -74,8 +74,15 @@ bool Boggle::hasBeenUsed(string word){
     bool wordFound = usedWords.find(word) != usedWords.end(); //true if word has already been used
     if (not (wordFound)){
         usedWords.insert(word); //doing this here keeps the logic in Boggle.cpp and lets boggleplay.cpp not worry about it
-    }
+	}
     return wordFound;
+}
+
+/*
+ * Emptying the set of used words
+ */
+void Boggle::clearUsedWords() {
+	usedWords.clear();
 }
 
 /*
