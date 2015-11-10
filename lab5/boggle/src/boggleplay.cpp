@@ -83,7 +83,7 @@ void playOneGame(Boggle& boggle) {
 				}
 			} else {
 				cout << "Word not in board! Try again!";
-			}
+            }
 		} else {
 			cout << "That's not a word! Try again!";
 		}

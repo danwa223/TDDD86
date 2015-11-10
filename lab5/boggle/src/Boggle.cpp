@@ -121,9 +121,9 @@ bool Boggle::isLongEnough(string word){
  * During play, checks if a prefix exists in the given lexicon of words, and if the prefix is a word, add it to the found words
  */
 bool Boggle::existsInLex(string prefix){
-    Lexicon lex("EnglishWords.dat"); //initialization here a super bad thing?
+    Lexicon lex("EnglishWords.dat"); //initialization here a super bad thing? Could not do in .h file
     if (lex.contains(prefix)){
-        wordsFoundOnBoard.insert(prefix); //will overwrite duplicate if any
+        wordsFoundOnBoard.insert(prefix); //will overwrite duplicate if any, used by both recursive searches but perhaps not needed for player
     }
     return (lex.containsPrefix(prefix));
 }
@@ -133,31 +133,53 @@ bool Boggle::existsInLex(string prefix){
  */
 bool Boggle::findWord(string &word){
     string prefix = "";
+    for (unsigned int letter = 0; letter < word.length(); letter++){ //uppercase the word
+        word[letter] = toupper(word[letter]);
+    }
+    cout << word << endl;
     bool found = false;
-    for (int row = 0; row < 4; row++){
+    for (int row = 0; row < 4; row++){ //first iteration, check if word start is in board
         for (int col = 0; col < 4; col++){
-            if (word[0] == board[row][col]){
-				prefix.push_back(word[0]);
-                found = playerRecursion(prefix, 1, row, col, word);
+            if (board[row][col] == word[0]){
+                prefix.push_back(word[0]);
+                for (int i = row - 1; i < row + 2; i++){ //second iteration, check for all neighbours of first word
+                    for (int j = col - 1; j < col + 2; j++){
+                        if (board.inBounds(i, j) && board[i][j] == (word[1])){ //if correct neighbour found, recursive loop the rest
+                            prefix.push_back(word[1]);
+                            found = playerRecursion(prefix, 2, i, j, word);
+                            prefix.pop_back();
+                        }
+                    }
+                }
             }
         }
     }
     return found;
 }
 
+//rimiyoiiiiiiymoi
+//RIMI
+//YOII
+//IIII
+//YMOI
+//heustdlapieejenh
+//HEUS
+//TDLA
+//PIEE
+//JENH
 /*
- * Main recursion body, to be commented more toroughly
+ * Recursive search for the player. Will not look up every word on the table, will only look for the word the player gives as an argument
  */
 bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word){
     for (int i = row_pos - 1; i < row_pos + 2; i++){
 		for (int j = col_pos - 1; j < col_pos + 2; j++){
 			//debug code
-			//cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
-            if ((board.inBounds(i, j)) && (board[i][j] == word[index])){
-                prefix.push_back(board[i][j]);
-                if (existsInLex(prefix)){
+            //cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
+            if ((board.inBounds(i, j)) && (board[i][j] == word[index]) && ((i != row_pos) || (j != col_pos))){ //found a neighbour that has the next letter we are looking for
+                prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
+                if (existsInLex(prefix)){ //check if prefix is legit so that the player can't cheat
                     index++;
-					if (index == word.length()) return true;
+                    if (index == word.length()) return true; //we have already upon calling findWord() checked if the word actually exists in the lexicon
                     return playerRecursion(prefix, index, i, j, word);
                 }
                 prefix.pop_back();
@@ -167,16 +189,42 @@ bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int
     return false;
 }
 
-/*string Boggle::recursion(string prefix, int row_pos, int col_pos){
+/*
+ * Computer version of find word
+ */
+void Boggle::findWords(){
+    string prefix = "";
+    for (int row = 0; row < 4; row++){ //first iteration, check if word start is in board
+        for (int col = 0; col < 4; col++){
+            char c = board[row][col];
+            prefix.push_back(c);
+            for (int i = row - 1; i < row + 2; i++){ //second iteration, check for all neighbours of first word
+                for (int j = col - 1; j < col + 2; j++){
+                    if (board.inBounds(i, j)){ //for every neighbour found, recursive loop the rest
+                        prefix.push_back(c);
+                        computerRecursion(prefix, i, j);
+                        prefix.pop_back();
+                    }
+                }
+            }
+            prefix.pop_back();
+        }
+    }
+}
+
+void Boggle::computerRecursion(string prefix, int row_pos, int col_pos){
     for (int i = row_pos - 1; i < row_pos + 2; i++){
-        for (int j = col_pos - 1; i < col_pos + 2; j++){
-            if (board.inBounds(i, j)){
-                prefix.append(board[i][j]);
+        for (int j = col_pos - 1; j < col_pos + 2; j++){
+            if ((board.inBounds(i, j)) && ((i != row_pos) || (j != col_pos))){ //found a valid neighbour
+                prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
+                if (!(usedWords.find(prefix) != usedWords.end()) && existsInLex(prefix) && isLongEnough(prefix)){ //check if prefix is legit so that the computer can't cheat
+                    compUsedWords.insert(prefix); //if the player hasn't used the word already, add it to the PC scoreboard
+                }
                 if (existsInLex(prefix)){
-                    recursion(prefix, row, col);
+                    return computerRecursion(prefix, i, j);
                 }
                 prefix.pop_back();
             }
         }
     }
-}*/
+}
