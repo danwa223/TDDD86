@@ -36,10 +36,12 @@ public:
     bool existsInLex(string prefix);
     void playerBacktrack(string word);
     bool findWord(string &word);
+	int calcScore(string who);
 
 private:
 	Grid<char> board;
     set<string> usedWords;
+	set<string> compUsedWords; //for future use
 
     bool playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word);
 
