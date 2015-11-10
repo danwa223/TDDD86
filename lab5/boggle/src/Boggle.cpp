@@ -31,15 +31,14 @@ Boggle::Boggle(){
     }
 }
 /*
- * Custom constructor for testing purposes, takes a custom string and uses the 16 first characters to create a board
+ * Overwrite the board, takes a custom string and uses the 16 first characters
  */
-Boggle::Boggle(string customGame){
-    board.resize(4, 4); //init the board, discard garbage values
+void Boggle::boardOverwrite(string customGame){
     int index = 0;
     for (int i = 0; i < 4; i++){
         for (int j = 0; j < 4; j++){
             char c = customGame[index];
-            putchar(toupper(c)); //capitalizes current char
+			c = toupper(c); //capitalizes current char
             board[i][j] = c; //puts char on the board
             index++;
         }
