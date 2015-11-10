@@ -20,7 +20,12 @@ void playOneGame(Boggle& boggle) {
 
 	Lexicon lex("EnglishWords.dat");
 
-    if (yesOrNo("Do you want to generate a random board? ")) {
+	if (yesOrNo("Do you want to create a custom board? ")) {
+		string str;
+		cout << "Enter a string of 16 characters: ";
+		getline(cin, str);
+		boggle.boardOverwrite(str);
+	} else if (yesOrNo("Do you want to generate a random board? ")) {
 		cout << "Every day I'm shufflin'..." << endl;
 		boggle.shuffleCubes();
     }

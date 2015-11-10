@@ -20,13 +20,14 @@ using namespace std;
 
 class Boggle {
 public:
-    Boggle();   //constructor
-    Boggle(string customGame); //custom board constructor
+	Boggle();   //constructor
     const string DICTIONARY_FILE = "EnglishWords.dat";
     const int MIN_WORD_LENGTH = 4;
     const int BOARD_SIZE = 4;
     string shuffledCubes = ""; //needs to be public to be accessed by boggleplay, is a representation for output
 
+
+	void boardOverwrite(string customGame);
     Grid<char> getBoard();
     set<string> getUsedWords();
 	void shuffleCubes(); //randomization of cubes
