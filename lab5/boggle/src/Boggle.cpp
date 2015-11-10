@@ -68,6 +68,33 @@ void Boggle::shuffleCubes(){
 }
 
 /*
+ * Calculate the score based on number and length of the words in a set
+ */
+int Boggle::calcScore(string who) {
+	int score = 0;
+	string str;
+
+	set<string>::iterator it;
+	if (who == "p") {    //Calculate the users score
+		for(it = usedWords.begin(); it != usedWords.end(); ++it){
+			str = *it;
+			if (str.length() >= 4) {
+				cout << str.length();
+				score += str.length() - 3;
+			}
+		}
+	} else if (who == "c") {    //Calculate the computers score
+		for(it = compUsedWords.begin(); it != compUsedWords.end(); ++it){
+			str = *it;
+			if (str.length() >= 4) {
+				score += str.length() - 3;
+			}
+		}
+	}
+	return score;
+}
+
+/*
  * During play, checks if a given word has already been played
  */
 bool Boggle::hasBeenUsed(string word){

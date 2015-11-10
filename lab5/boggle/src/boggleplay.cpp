@@ -34,7 +34,7 @@ void playOneGame(Boggle& boggle) {
 		printBoard(boggle.getBoard());
 
 		printWords(boggle.getUsedWords(), "Your ");
-		printScore(/*playerScore*/);
+		cout << "Your score: " << boggle.calcScore("p") << endl;
 
 		string word;
 
@@ -55,7 +55,7 @@ void playOneGame(Boggle& boggle) {
 		}
 
 		// Let's go another round!
-		if (cin.get() == '\n') clearConsole();
+		//if (cin.get() == '\n') clearConsole();
 		cout << endl;
 	}
 
@@ -64,7 +64,7 @@ void playOneGame(Boggle& boggle) {
 	cout << "It's my turn!" << endl;
 	// recursive algoritm in boggle.cpp
 	//void printWords(boggle.getUsedWords(), "My"); //TODO: Change to computer
-	printScore(/*getComputerScore*/);
+	cout << "My score: " << boggle.calcScore("c") << endl;
 
 	if (true/* computerScore > playerScore*/) {
 		cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
@@ -97,7 +97,7 @@ void printBoard(Grid<char> board) {
  */
 void printWords(set<string> usedWords, string who) {
 
-	if (usedWords.size()){
+	//if (usedWords.size()){
 		cout << who << " words (" << usedWords.size() << "): {";
 
 		set<string>::iterator it;
@@ -105,7 +105,7 @@ void printWords(set<string> usedWords, string who) {
 			cout << "\"" << *it << "\", ";
 		}
 		cout << "}" << endl;
-	}
+	//}
 }
 
 void printScore() {
