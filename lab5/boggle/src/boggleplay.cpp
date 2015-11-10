@@ -96,8 +96,8 @@ void playOneGame(Boggle& boggle) {
 	//TODO: Make this
 	// Computers turn
 	cout << "It's my turn!" << endl;
-	// recursive algoritm in boggle.cpp
-	//void printWords(boggle.getUsedWords(), "My"); //TODO: Change to computer
+	boggle.findWords();
+	printWords(boggle.getUsedWords(), "My");
 	cout << "My score: " << boggle.calcScore("c") << endl;
 	cscore = boggle.calcScore("c");
 
