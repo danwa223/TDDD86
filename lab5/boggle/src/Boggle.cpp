@@ -138,34 +138,43 @@ bool Boggle::findWord(string &word){
     }
     cout << word << endl;
     bool found = false;
-    for (int row = 0; row < 4; row++){
+    for (int row = 0; row < 4; row++){ //first iteration, check if word start is in board
         for (int col = 0; col < 4; col++){
-            if (word[0] == board[row][col]){
+            if (board[row][col] == word[0]){
                 prefix.push_back(word[0]);
-                //cout << "hello" << endl;
-                for (int i = row - 1; i < row + 2; i++){
+                for (int i = row - 1; i < row + 2; i++){ //second iteration, check for all neighbours of first word
                     for (int j = col - 1; j < col + 2; j++){
-                        if (board.inBounds(i, j)){
-                            found = playerRecursion(prefix, 1, i, j, word);
+                        if (board.inBounds(i, j) && board[i][j] == (word[1])){ //if correct neighbour found, recursive loop the rest
+                            prefix.push_back(word[1]);
+                            found = playerRecursion(prefix, 2, i, j, word);
+                            prefix.pop_back();
                         }
                     }
                 }
-                //found = playerRecursion(prefix, 1, row, col, word);
             }
         }
     }
     return found;
 }
 
+//rimiyoiiiiiiymoi
+//RIMI
+//YOII
+//IIII
+//YMOI
+//heustdlapieejenh
+//HEUS
+//TDLA
+//PIEE
+//JENH
 /*
  * Recursive search for the player. Will not look up every word on the table, will only look for the word the player gives as an argument
  */
 bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word){
-    //cout << word << endl;
     for (int i = row_pos - 1; i < row_pos + 2; i++){
 		for (int j = col_pos - 1; j < col_pos + 2; j++){
 			//debug code
-            cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
+            //cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
             if ((board.inBounds(i, j)) && (board[i][j] == word[index]) && ((i != row_pos) || (j != col_pos))){ //found a neighbour that has the next letter we are looking for
                 prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
                 if (existsInLex(prefix)){ //check if prefix is legit so that the player can't cheat
@@ -179,17 +188,3 @@ bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int
     }
     return false;
 }
-
-/*string Boggle::recursion(string prefix, int row_pos, int col_pos){
-    for (int i = row_pos - 1; i < row_pos + 2; i++){
-        for (int j = col_pos - 1; i < col_pos + 2; j++){
-            if (board.inBounds(i, j)){
-                prefix.append(board[i][j]);
-                if (existsInLex(prefix)){
-                    recursion(prefix, row, col);
-                }
-                prefix.pop_back();
-            }
-        }
-    }
-}*/
