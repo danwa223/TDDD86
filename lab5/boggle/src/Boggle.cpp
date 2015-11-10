@@ -134,12 +134,24 @@ bool Boggle::existsInLex(string prefix){
  */
 bool Boggle::findWord(string &word){
     string prefix = "";
+    for (unsigned int letter = 0; letter < word.length(); letter++){ //uppercase the word
+        word[letter] = toupper(word[letter]);
+    }
+    cout << word << endl;
     bool found = false;
     for (int row = 0; row < 4; row++){
         for (int col = 0; col < 4; col++){
             if (word[0] == board[row][col]){
                 prefix.push_back(word[0]);
-                found = playerRecursion(prefix, 1, row, col, word);
+                //cout << "hello" << endl;
+                for (int i = row - 1; i < row + 2; i++){
+                    for (int j = col - 1; j < col + 2; j++){
+                        if (board.inBounds(i, j)){
+                            found = playerRecursion(prefix, 1, i, j, word);
+                        }
+                    }
+                }
+                //found = playerRecursion(prefix, 1, row, col, word);
             }
         }
     }
@@ -150,15 +162,16 @@ bool Boggle::findWord(string &word){
  * Recursive search for the player. Will not look up every word on the table, will only look for the word the player gives as an argument
  */
 bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word){
+    //cout << word << endl;
     for (int i = row_pos - 1; i < row_pos + 2; i++){
 		for (int j = col_pos - 1; j < col_pos + 2; j++){
 			//debug code
             cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
-            if ((board.inBounds(i, j)) && (board[i][j] == word[index])){ //found a neighbour that has the next letter we are looking for
+            if ((board.inBounds(i, j)) && (board[i][j] == word[index]) && ((i != row_pos) || (j != col_pos))){ //found a neighbour that has the next letter we are looking for
                 prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
                 if (existsInLex(prefix)){ //check if prefix is legit so that the player can't cheat
                     index++;
-					if (index == word.length()) return true;
+                    if (index == word.length()) return true; //we have already upon calling findWord() checked if the word actually exists in the lexicon
                     return playerRecursion(prefix, index, i, j, word);
                 }
                 prefix.pop_back();
