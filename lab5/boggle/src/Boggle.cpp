@@ -60,6 +60,13 @@ set<string> Boggle::getUsedWords(){
 }
 
 /*
+ * Getter for the console output in boggleplay.cpp
+ */
+set<string> Boggle::getCompUsedWords(){
+	return compUsedWords;
+}
+
+/*
  * Calls the randomization in shuffle.h using the Grid template (board is a grid)
  */
 void Boggle::shuffleCubes(){
@@ -125,7 +132,8 @@ bool Boggle::existsInLex(string prefix){
     if (lex.contains(prefix)){
         wordsFoundOnBoard.insert(prefix); //will overwrite duplicate if any, used by both recursive searches but perhaps not needed for player
     }
-    return (lex.containsPrefix(prefix));
+    return true;
+    //return (lex.containsPrefix(prefix));
 }
 
 /*
@@ -156,6 +164,16 @@ bool Boggle::findWord(string &word){
     return found;
 }
 
+//heustdlapieajegr
+
+//leartdpalaiejegr  //did not find lear
+//LEAR
+//TDPA
+//LAIE
+//JEGR
+
+//leariiiiiiiiiiii  //found lear
+
 //rimiyoiiiiiiymoi
 //RIMI
 //YOII
@@ -173,15 +191,19 @@ bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int
     for (int i = row_pos - 1; i < row_pos + 2; i++){
 		for (int j = col_pos - 1; j < col_pos + 2; j++){
 			//debug code
-            //cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
-            if ((board.inBounds(i, j)) && (board[i][j] == word[index]) && ((i != row_pos) || (j != col_pos))){ //found a neighbour that has the next letter we are looking for
+            cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
+            if ((board.inBounds(i, j)) && (board[i][j] == word[index]) && ((i != row_pos) || (j != col_pos)) && ((index + 1) < word.length())){ //found a neighbour that has the next letter we are looking for
                 prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
                 if (existsInLex(prefix)){ //check if prefix is legit so that the player can't cheat
                     index++;
+                    cout << index << endl;
+                    //index is fucking about, see also existsInLex.
                     if (index == word.length()) return true; //we have already upon calling findWord() checked if the word actually exists in the lexicon
                     return playerRecursion(prefix, index, i, j, word);
                 }
-                prefix.pop_back();
+                if (index != word.length()){
+                    prefix.pop_back();
+                }
             }
         }
     }

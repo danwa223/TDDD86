@@ -30,6 +30,7 @@ public:
 	void boardOverwrite(string customGame);
     Grid<char> getBoard();
     set<string> getUsedWords();
+	set<string> getCompUsedWords();
 	void shuffleCubes(); //randomization of cubes
     bool hasBeenUsed(string word);
 	void clearUsedWords();

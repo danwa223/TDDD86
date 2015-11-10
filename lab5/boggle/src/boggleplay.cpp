@@ -36,7 +36,6 @@ void playOneGame(Boggle& boggle) {
 				}
 				if (asd) {
 					boggle.boardOverwrite(str);
-					cout << "overwrote";
 					break;
 				} else {
 					cout << "A-Z, lower or upper case, you dingus: ";
@@ -93,11 +92,10 @@ void playOneGame(Boggle& boggle) {
 		cout << endl;
 	}
 
-	//TODO: Make this
-	// Computers turn
+/*	// Computers turn
 	cout << "It's my turn!" << endl;
-	// recursive algoritm in boggle.cpp
-	//void printWords(boggle.getUsedWords(), "My"); //TODO: Change to computer
+	boggle.findWords();
+	printWords(boggle.getCompUsedWords(), "My");
 	cout << "My score: " << boggle.calcScore("c") << endl;
 	cscore = boggle.calcScore("c");
 
@@ -109,7 +107,7 @@ void playOneGame(Boggle& boggle) {
 	} else {
 		cout << "wat";
 	}
-
+*/
 	//clearing the list of used word in case we want to play another round
 	boggle.clearUsedWords();
 }
