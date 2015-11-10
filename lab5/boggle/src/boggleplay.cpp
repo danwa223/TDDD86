@@ -59,7 +59,7 @@ void playOneGame(Boggle& boggle) {
 	int pscore, cscore;
 
 	// Players turn
-	while(true) {
+/*	while(true) {
 		printBoard(boggle.getBoard());
 
 		printWords(boggle.getUsedWords(), "Your ");
@@ -92,12 +92,11 @@ void playOneGame(Boggle& boggle) {
 		if (cin.get() == '\n') clearConsole();
 		cout << endl;
 	}
-
-	//TODO: Make this
+*/
 	// Computers turn
 	cout << "It's my turn!" << endl;
 	boggle.findWords();
-	printWords(boggle.getUsedWords(), "My");
+	printWords(boggle.getCompUsedWords(), "My");
 	cout << "My score: " << boggle.calcScore("c") << endl;
 	cscore = boggle.calcScore("c");
 

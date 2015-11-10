@@ -60,6 +60,13 @@ set<string> Boggle::getUsedWords(){
 }
 
 /*
+ * Getter for the console output in boggleplay.cpp
+ */
+set<string> Boggle::getCompUsedWords(){
+	return compUsedWords;
+}
+
+/*
  * Calls the randomization in shuffle.h using the Grid template (board is a grid)
  */
 void Boggle::shuffleCubes(){
@@ -213,6 +220,9 @@ void Boggle::findWords(){
 }
 
 void Boggle::computerRecursion(string prefix, int row_pos, int col_pos){
+	int i;
+	cout << i << " ";
+	i++;
     for (int i = row_pos - 1; i < row_pos + 2; i++){
         for (int j = col_pos - 1; j < col_pos + 2; j++){
             if ((board.inBounds(i, j)) && ((i != row_pos) || (j != col_pos))){ //found a valid neighbour
