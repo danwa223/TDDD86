@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <set>
+#include <vector>
 #include "../lib/StanfordCPPLib/grid.h"
 #include "../lib/StanfordCPPLib/random.h"
 #include "../lib/StanfordCPPLib/lexicon.h"
@@ -20,7 +21,7 @@ using namespace std;
 
 class Boggle {
 public:
-	Boggle();   //constructor
+    Boggle(); //constructor
     const string DICTIONARY_FILE = "EnglishWords.dat";
     const int MIN_WORD_LENGTH = 4;
     const int BOARD_SIZE = 4;
@@ -31,7 +32,7 @@ public:
     Grid<char> getBoard();
     set<string> getUsedWords();
 	set<string> getCompUsedWords();
-	void shuffleCubes(); //randomization of cubes
+    void shuffleCubes(); // randomization of cubes
     bool hasBeenUsed(string word);
 	void clearUsedWords();
     bool isLongEnough(string word);
@@ -42,15 +43,17 @@ public:
 	int calcScore(string who);
 
 private:
-    //bool found;
 	Grid<char> board;
-    set<string> usedWords; //contains all legit words the player has found
-    set<string> compUsedWords; //words for CPU player after player player has played
+    set<string> usedWords;     // contains all legit words the player has found
+    set<string> compUsedWords; // words for CPU player after player player has played
+    Grid<bool> visited;        // position set to true if the recursion has visited it
+    bool found;
+    bool keepLooking;
 
-    bool playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word, bool &found);
-    void computerRecursion(string prefix, int row_pos, int col_pos);
+    void searchInit();
+    void playerRecursion(string prefix, int row, int col, string &word);
+    void computerRecursion(string prefix, int row, int col);
 
-    //would like to initialize a lexicon here to be global in Boggle.cpp
 	Lexicon lex = Lexicon("EnglishWords.dat");
     set<string> wordsFoundOnBoard;
 };
