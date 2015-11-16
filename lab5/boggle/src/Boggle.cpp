@@ -142,6 +142,7 @@ bool Boggle::existsInLex(string prefix){
 bool Boggle::findWord(string &word){
 
     string prefix = "";
+    int iter = 0;
 
     //uppercase all characters
     for (unsigned int letter = 0; letter < word.length(); letter++){
@@ -160,7 +161,11 @@ bool Boggle::findWord(string &word){
                         //debug
                         if (board.inBounds(i, j) && (board[i][j] == (word[1]))){ //if correct neighbour found, recursive loop the rest
                             prefix.push_back(word[1]);
-                            found = playerRecursion(prefix, 2, i, j, word, found);
+                            while ((not (found)) && iter < 8){
+                                found = playerRecursion(prefix, 2, i, j, word, found);
+                                iter++;
+                            }
+                            iter = 0;
                             prefix.pop_back();
                             cout << "Prefix is right now: " << prefix << endl;
                         }
@@ -192,7 +197,7 @@ bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int
     for (int i = row_pos - 1; i < row_pos + 2; i++){
         for (int j = col_pos - 1; j < col_pos + 2; j++){
 			//debug code
-            cout << "playerRecursion i: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
+            cout << "playerRecursion: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
             if ((board.inBounds(i, j)) && (board[i][j] == word[index]) && (not ((i == row_pos) && (j == col_pos))) && (not (found))){ //found a neighbour that has the next letter we are looking for
                 prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
                 if (existsInLex(prefix)){ //check if prefix is legit so that the player can't cheat
