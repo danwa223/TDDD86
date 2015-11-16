@@ -42,11 +42,12 @@ public:
 	int calcScore(string who);
 
 private:
+    //bool found;
 	Grid<char> board;
     set<string> usedWords; //contains all legit words the player has found
     set<string> compUsedWords; //words for CPU player after player player has played
 
-    bool playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word);
+    bool playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word, bool &found);
     void computerRecursion(string prefix, int row_pos, int col_pos);
 
     //would like to initialize a lexicon here to be global in Boggle.cpp
