@@ -51,6 +51,7 @@ private:
     void computerRecursion(string prefix, int row_pos, int col_pos);
 
     //would like to initialize a lexicon here to be global in Boggle.cpp
+	Lexicon lex = Lexicon("EnglishWords.dat");
     set<string> wordsFoundOnBoard;
 };
 
