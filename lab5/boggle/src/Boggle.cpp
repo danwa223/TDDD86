@@ -1,5 +1,3 @@
-//TODO: Add const where appropriate
-
 #include <sstream>
 #include <stdio.h>
 #include <ctype.h>
@@ -128,12 +126,8 @@ bool Boggle::isLongEnough(string word){
  * During play, checks if a prefix exists in the given lexicon of words, and if the prefix is a word, add it to the found words
  */
 bool Boggle::existsInLex(string prefix){
-    Lexicon lex("EnglishWords.dat"); //initialization here a super bad thing? Could not do in .h file
-    if (lex.contains(prefix)){
-        wordsFoundOnBoard.insert(prefix); //will overwrite duplicate if any, used by both recursive searches but perhaps not needed for player
-    }
-    return true;
-    //return (lex.containsPrefix(prefix));
+	return lex.containsPrefix(prefix);
+		//wordsFoundOnBoard.insert(prefix); //will overwrite duplicate if any, used by both recursive searches but perhaps not needed for player
 }
 
 /*
@@ -198,11 +192,12 @@ bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int
                 if (existsInLex(prefix)){ //check if prefix is legit so that the player can't cheat
                     index++;
                     cout << "Index is: " << index << endl;
-                    if (index == word.length()){
+					if ((index == word.length()) && (lex.contains(prefix))){
+						wordsFoundOnBoard.insert(prefix);
                         cout << "Returning true here!" << endl;
                         found = true;
                         return found; //got the word. Return to previous level, where the loop finishes and then the found-bool blocks further looping.
-                    }
+                    }	
                     return playerRecursion(prefix, index, i, j, word, found);
                 }
             }
@@ -243,6 +238,7 @@ void Boggle::computerRecursion(string prefix, int row_pos, int col_pos){
                     compUsedWords.insert(prefix); //if the player hasn't used the word already, add it to the PC scoreboard
                 }
                 if (existsInLex(prefix)){
+					//wordsFoundOnBoard.insert(prefix);
                     return computerRecursion(prefix, i, j);
                 }
                 prefix.pop_back();
