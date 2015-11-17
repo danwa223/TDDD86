@@ -113,6 +113,7 @@ bool Boggle::hasBeenUsed(string word){
  */
 void Boggle::clearUsedWords() {
 	usedWords.clear();
+	compUsedWords.clear();
 }
 
 /*
@@ -185,14 +186,14 @@ void Boggle::playerRecursion(string prefix, int row, int col, string &word) {
 
 	//this will be called if the last letter of the prefix is actually found on the board
     if (prefix == word){
-        found = true;
+		found = true;      // bool found is declared in header and used for simplicity in boggleplay.cpp
         return;
     }
 
     //if we have looped to an incorrect prefix, stop looking deeper
     for (unsigned int i = 0; i < prefix.length(); i++){
         if(prefix[i] != word[i]){
-            keepLooking = false;
+			keepLooking = false;   // bool keepLooking is declared in header
         }
     }
     //if we are working with a prefix that doesn't exist, return
@@ -237,8 +238,7 @@ void Boggle::computerRecursion(string prefix, int row, int col){
 	// if we're not inbounds or already visited the spot we're looking at in the current recursion loop simply return, prevents endless loop
     if ((!board.inBounds(row, col)) || (visited[row][col]) ) return;
 
-    //update relevant variables
-    keepLooking = true;
+	// update relevant variables
     visited[row][col] = true;
     prefix.push_back(board[row][col]);
 
