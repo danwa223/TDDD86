@@ -92,7 +92,7 @@ void playOneGame(Boggle& boggle) {
 		cout << endl;
 	}
 
-/*	// Computers turn
+	// Computers turn
 	cout << "It's my turn!" << endl;
 	boggle.findWords();
 	printWords(boggle.getCompUsedWords(), "My");
@@ -107,7 +107,7 @@ void playOneGame(Boggle& boggle) {
 	} else {
 		cout << "wat";
 	}
-*/
+
 	//clearing the list of used word in case we want to play another round
 	boggle.clearUsedWords();
 }

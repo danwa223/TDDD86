@@ -55,7 +55,6 @@ private:
     void computerRecursion(string prefix, int row, int col);
 
 	Lexicon lex = Lexicon("EnglishWords.dat");
-    set<string> wordsFoundOnBoard;
 };
 
 #endif

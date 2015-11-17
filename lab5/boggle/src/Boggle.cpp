@@ -127,7 +127,6 @@ bool Boggle::isLongEnough(string word){
  */
 bool Boggle::existsInLex(string prefix){
 	return lex.containsPrefix(prefix);
-		//wordsFoundOnBoard.insert(prefix); //will overwrite duplicate if any, used by both recursive searches but perhaps not needed for player
 }
 
 /*
@@ -160,29 +159,20 @@ bool Boggle::findWord(string &word){
     //iterate over the board, start recursion on unvisited positions in bounds that start with the correct letter
     for (int row = 0; row < 4; ++row) {
         for (int col = 0; col < 4; ++col) {
-            if (board.inBounds(row,col) && !(visited[row][col])) {
+			//if (board.inBounds(row,col) && !(visited[row][col])) {
                 if (board[row][col] == word[0]) {
                     playerRecursion(prefix, row, col, word);
                     if (found) return true;
                 }
-            }
+			//}
         }
     }
     return false;
 }
 
-//fycliomgorilhjhu //solved, used to have problems with "coil, roil, moil" etc
-//FYCL
-//IOMG
-//ORIL
-//HJHU
-
-//leartdpalaiejegr  //solved
-//LEAR
-//TDPA
-//LAIE
-//JEGR
-
+/*
+ * Main recursion for confirming that the player entered a correct word
+ */
 void Boggle::playerRecursion(string prefix, int row, int col, string &word) {
 
     //if we're not inbounds or already visited the spot we're looking at in the current recursion loop simply return, prevents endless loop
@@ -192,7 +182,7 @@ void Boggle::playerRecursion(string prefix, int row, int col, string &word) {
     keepLooking = true;
     visited[row][col] = true;
     prefix.push_back(board[row][col]);
-    cout << prefix << endl;
+	//cout << prefix << endl;            //debug
 
     //this will be called if the last letter of the prefix is actually found on the board.
     if (prefix == word){
@@ -229,6 +219,7 @@ void Boggle::playerRecursion(string prefix, int row, int col, string &word) {
 void Boggle::findWords(){
     searchInit();
     string prefix = "";
+
     for (int row = 0; row < 4; row++){
         for (int col = 0; col < 4; col++){
             computerRecursion(prefix, row, col);
@@ -238,7 +229,7 @@ void Boggle::findWords(){
 
 void Boggle::computerRecursion(string prefix, int row, int col){
 
-    //if we're not inbounds or already visited the spot we're looking at in the current recursion loop simply return, prevents endless loop
+	// if we're not inbounds or already visited the spot we're looking at in the current recursion loop simply return, prevents endless loop
     if ((!board.inBounds(row, col)) || (visited[row][col]) ) return;
 
     //update relevant variables
@@ -246,9 +237,11 @@ void Boggle::computerRecursion(string prefix, int row, int col){
     visited[row][col] = true;
     prefix.push_back(board[row][col]);
 
+	// words of 3 chars or less don't give score, discard them
+	// add all found words to
     if (lex.contains(prefix) && prefix.size() > 3){
-        wordsFoundOnBoard.insert(prefix); //since we use a set we will overwrite doubles (I think)
-    }
+		compUsedWords.insert(prefix);
+		}
 
     if (lex.containsPrefix(prefix)){
         computerRecursion(prefix, row - 1, col); //N
@@ -265,126 +258,3 @@ void Boggle::computerRecursion(string prefix, int row, int col){
         return;
     }
 }
-
-/*
- * Computer version of find word
- */
-/*void Boggle::findWords(){
-    string prefix = "";
-    for (int row = 0; row < 4; row++){ //first iteration, check if word start is in board
-        for (int col = 0; col < 4; col++){
-            char c = board[row][col];
-            prefix.push_back(c);
-            for (int i = row - 1; i < row + 2; i++){ //second iteration, check for all neighbours of first word
-                for (int j = col - 1; j < col + 2; j++){
-                    if (board.inBounds(i, j)){ //for every neighbour found, recursive loop the rest
-                        prefix.push_back(c);
-                        computerRecursion(prefix, i, j);
-                        prefix.pop_back();
-                    }
-                }
-            }
-            prefix.pop_back();
-        }
-    }
-}
-
-void Boggle::computerRecursion(string prefix, int row_pos, int col_pos){
-    for (int i = row_pos - 1; i < row_pos + 2; i++){
-        for (int j = col_pos - 1; j < col_pos + 2; j++){
-            if ((board.inBounds(i, j)) && ((i != row_pos) || (j != col_pos))){ //found a valid neighbour
-                prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
-                if (!(usedWords.find(prefix) != usedWords.end()) && existsInLex(prefix) && isLongEnough(prefix)){ //check if prefix is legit so that the computer can't cheat
-                    compUsedWords.insert(prefix); //if the player hasn't used the word already, add it to the PC scoreboard
-                }
-                if (existsInLex(prefix)){
-					//wordsFoundOnBoard.insert(prefix);
-                    return computerRecursion(prefix, i, j);
-                }
-                prefix.pop_back();
-            }
-        }
-    }
-}*/
-
-/*
- * For every member in board, if member is the start of the word we're looking for, perform recursion to see if it exists
- */
-/*bool Boggle::findWord(string &word){
-
-    string prefix = "";
-    int iter = 0;
-
-    //uppercase all characters
-    for (unsigned int letter = 0; letter < word.length(); letter++){
-        word[letter] = toupper(word[letter]);
-    }
-
-    bool found = false;
-    for (int row = 0; row < 4; row++){ //first iteration, check if word start is in board
-        for (int col = 0; col < 4; col++){
-            if ((board[row][col] == word[0]) && (not (found))){
-                prefix.push_back(word[0]);
-                //found = playerRecursion(prefix, 2, row, col, word, found);
-                for (int i = row - 1; i < row + 2; i++){ //second iteration, check for all neighbours of first word
-                    for (int j = col - 1; j < col + 2; j++){
-                        //if (board.inBounds(i,j)) cout << board[i][j];
-                        //debug
-                        if (board.inBounds(i, j) && (board[i][j] == (word[1]))){ //if correct neighbour found, recursive loop the rest
-                            prefix.push_back(word[1]);
-                            //while ((not (found)) && iter < 8){
-                                found = playerRecursion(prefix, 2, i, j, word, found);
-                            //    iter++;
-                            //}
-                            //iter = 0;
-                            prefix.pop_back();
-                            cout << "Prefix is right now: " << prefix << endl;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return found;
-}*/
-
-// && (not (found))
-//fycliomgorilhjhu //problem from letter 2 to 3. Problem words: Coil, Foil, Roil, Moil
-//FYCL
-//IOMG
-//ORIL
-//HJHU
-
-//leartdpalaiejegr  //solved
-//LEAR
-//TDPA
-//LAIE
-//JEGR
-
-/*
- * Recursive search for the player. Will not look up every word on the table, will only look for the word the player gives as an argument
- */
-/*bool Boggle::playerRecursion(string prefix, unsigned int index, int row_pos, int col_pos, string &word, bool &found){
-    for (int i = row_pos - 1; i < row_pos + 2; i++){
-        for (int j = col_pos - 1; j < col_pos + 2; j++){
-            //debug code
-            cout << "playerRecursion: " << i << ", j:" << j << endl << "letter: " << word[index] << endl;
-            if ((board.inBounds(i, j)) && (board[i][j] == word[index]) && (not ((i == row_pos) && (j == col_pos))) && (not (found))){ //found a neighbour that has the next letter we are looking for
-                prefix.push_back(board[i][j]); //"concatenate" the letter to the prefix string
-                    if (existsInLex(prefix)){ //check if prefix is legit so that the player can't cheat
-                    index++;
-                    cout << "Index is: " << index << endl;
-                    if ((index == word.length()) && (lex.contains(prefix))){
-                        wordsFoundOnBoard.insert(prefix);
-                        cout << "Returning true here!" << endl;
-                        found = true;
-                        return found; //got the word. Return to previous level, where the loop finishes and then the found-bool blocks further looping.
-                    }
-
-                    return playerRecursion(prefix, index, i, j, word, found);
-                }
-            }
-        }
-    }
-    return found;
-}*/
