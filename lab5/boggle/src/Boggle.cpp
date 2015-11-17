@@ -117,6 +117,7 @@ void Boggle::clearUsedWords() {
 
 /*
  * During play, checks if a given set<string> word fits the length criteria
+ * Not currently in use as we allow the player to enter shorter wordss
  */
 bool Boggle::isLongEnough(string word){
     return (word.length() > 3); //returns true for words length 4 or greater
@@ -143,13 +144,13 @@ void Boggle::searchInit(){
 }
 
 /*
- * Help function to get the recursion going
+ * Help function to get the player recursion going
  */
 bool Boggle::findWord(string &word){
 
     searchInit();
     string prefix = "";
-    found = false; //initiated to false by default
+	found = false;
 
     //uppercase all characters in a word
     for (unsigned int letter = 0; letter < word.length(); letter++) {
@@ -158,13 +159,11 @@ bool Boggle::findWord(string &word){
 
     //iterate over the board, start recursion on unvisited positions in bounds that start with the correct letter
     for (int row = 0; row < 4; ++row) {
-        for (int col = 0; col < 4; ++col) {
-			//if (board.inBounds(row,col) && !(visited[row][col])) {
-                if (board[row][col] == word[0]) {
-                    playerRecursion(prefix, row, col, word);
-                    if (found) return true;
-                }
-			//}
+		for (int col = 0; col < 4; ++col) {
+			if (board[row][col] == word[0]) {
+				playerRecursion(prefix, row, col, word);
+				if (found) return true;
+			}
         }
     }
     return false;
@@ -184,7 +183,7 @@ void Boggle::playerRecursion(string prefix, int row, int col, string &word) {
     prefix.push_back(board[row][col]);
 	//cout << prefix << endl;            //debug
 
-    //this will be called if the last letter of the prefix is actually found on the board.
+	//this will be called if the last letter of the prefix is actually found on the board
     if (prefix == word){
         found = true;
         return;
@@ -216,6 +215,9 @@ void Boggle::playerRecursion(string prefix, int row, int col, string &word) {
     }
 }
 
+/*
+ * Help function to get the CPU recursion going
+ */
 void Boggle::findWords(){
     searchInit();
     string prefix = "";
@@ -227,6 +229,9 @@ void Boggle::findWords(){
     }
 }
 
+/*
+ * Main recursion for finding all remaining words on the board
+ */
 void Boggle::computerRecursion(string prefix, int row, int col){
 
 	// if we're not inbounds or already visited the spot we're looking at in the current recursion loop simply return, prevents endless loop
@@ -238,9 +243,9 @@ void Boggle::computerRecursion(string prefix, int row, int col){
     prefix.push_back(board[row][col]);
 
 	// words of 3 chars or less don't give score, discard them
-	// add all found words to
-    if (lex.contains(prefix) && prefix.size() > 3){
-		compUsedWords.insert(prefix);
+	// found words added to the list of words found by the CPU
+	if (lex.contains(prefix) && prefix.size() > 3){
+		addCompWord(prefix);
 		}
 
     if (lex.containsPrefix(prefix)){
@@ -257,4 +262,13 @@ void Boggle::computerRecursion(string prefix, int row, int col){
         visited[row][col] = false;
         return;
     }
+}
+
+/*
+ * Add only words not found by the player to the CPUs words
+ */
+void Boggle::addCompWord(string word){
+	if(usedWords.find(word) == usedWords.end()) {
+		compUsedWords.insert(word);
+	}
 }

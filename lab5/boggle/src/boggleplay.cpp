@@ -78,7 +78,7 @@ void playOneGame(Boggle& boggle) {
 				if (boggle.hasBeenUsed(word)) {
 					cout << "You've already guessed that word! Try again!";
 				} else {
-					cout << "You found a new word! '" << word << "'";
+					cout << "You found a new word! '" << word << "' " << "Press enter to proceed." ;
 				}
 			} else {
 				cout << "Word not in board! Try again!";
@@ -92,7 +92,7 @@ void playOneGame(Boggle& boggle) {
 		cout << endl;
 	}
 
-	// Computers turn
+	// CPUs turn
 	cout << "It's my turn!" << endl;
 	boggle.findWords();
 	printWords(boggle.getCompUsedWords(), "My");
@@ -127,7 +127,7 @@ void printBoard(Grid<char> board) {
 }
 
 /*
- * Print out the words the player have already found
+ * Print out the words the player/CPU have already found
  */
 void printWords(set<string> usedWords, string who) {
 

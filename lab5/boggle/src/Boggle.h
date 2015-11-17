@@ -35,9 +35,7 @@ public:
     void shuffleCubes(); // randomization of cubes
     bool hasBeenUsed(string word);
 	void clearUsedWords();
-    bool isLongEnough(string word);
-    bool existsInLex(string prefix);
-    void playerBacktrack(string word);
+	bool isLongEnough(string word);
     bool findWord(string &word);
     void findWords();
 	int calcScore(string who);
@@ -51,8 +49,10 @@ private:
     bool keepLooking;
 
     void searchInit();
+	bool existsInLex(string prefix);
     void playerRecursion(string prefix, int row, int col, string &word);
     void computerRecursion(string prefix, int row, int col);
+	void addCompWord(string word);
 
 	Lexicon lex = Lexicon("EnglishWords.dat");
 };
