@@ -1,30 +1,14 @@
+// This is the CPP file you will edit and turn in.
+// Also remove these comments here and add your own, along with
+// comments on every function and on complex code sections.
+// TODO: remove this comment header
+
 #include "encoding.h"
+// TODO: include any other headers you need
 
 map<int, int> buildFrequencyTable(istream& input) {
-
-	map<int, int> freqTable;
-
-	int inChar = 0;
-	map<int, int>::iterator it;
-
-	// keep getting input chars untill we reach end of file (-1)
-	while((inChar != -1)) {
-		inChar = input.get();
-
-		/*// map.insert(key) will return an iterator pointing to key if key is in map
-		 *if(freqTable.insert(inChar) != freqTable.end) {
-		 *
-		 *}
-		 */
-
-		it = freqTable.find(inChar);
-		if(it != freqTable.end()) {
-			it->second++;
-		} else {
-			freqTable.insert(inChar ,1);
-		}
-	}
-
+    // TODO: implement this function
+    map<int, int> freqTable;
     return freqTable;
 }
 
@@ -58,4 +42,3 @@ void decompress(ibitstream& input, ostream& output) {
 void freeTree(HuffmanNode* node) {
     // TODO: implement this function
 }
-
