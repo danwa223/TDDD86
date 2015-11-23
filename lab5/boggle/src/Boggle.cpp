@@ -245,8 +245,8 @@ void Boggle::computerRecursion(string prefix, int row, int col){
 	// words of 3 chars or less don't give score, discard them
 	// found words added to the list of words found by the CPU
 	if (lex.contains(prefix) && prefix.size() > 3){
-		addCompWord(prefix);
-		}
+        addCompWord(prefix);
+    }
 
     if (lex.containsPrefix(prefix)){
         computerRecursion(prefix, row - 1, col); //N
