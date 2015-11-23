@@ -1,4 +1,5 @@
 #include "encoding.h"
+#include <queue>
 
 map<int, int> buildFrequencyTable(istream& input) {
 	cout << "asdf";
@@ -20,14 +21,23 @@ map<int, int> buildFrequencyTable(istream& input) {
 		}
 	}
 
-	// End Of File
+	// End Of File, currently always adding this
 	freqTable.insert(make_pair(PSEUDO_EOF, 1));
 
     return freqTable;
 }
 
 HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
-    // TODO: implement this function
+
+	map<int, int>::iterator it;
+	priority_queue<HuffmanNode> prioQueue;
+
+	for (it = freqTable.begin(); it != freqTable.end(); ++it) {
+		prioQueue.push(HuffmanNode(it->first, it->second));
+	}
+
+	// build tree
+
     return nullptr;
 }
 
