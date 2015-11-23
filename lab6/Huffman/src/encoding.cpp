@@ -1,8 +1,10 @@
 #include "encoding.h"
+#include "bitstream.h"
 #include <queue>
 
+void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, string path); //should be in .h file but we only turn in this one!
+
 map<int, int> buildFrequencyTable(istream& input) {
-	cout << "asdf";
 
 	map<int, int> freqTable;
 	map<int, int>::iterator it;
@@ -29,22 +31,68 @@ map<int, int> buildFrequencyTable(istream& input) {
 
 HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
 
-    map<int, int>::iterator it;
 	priority_queue<HuffmanNode> prioQueue;
+    HuffmanNode *Node;
 
-    for (it = freqTable.begin(); it != freqTable.end(); ++it) {
-		prioQueue.push(HuffmanNode(it->first, it->second));
+	// Use the frequency table to build a priority queue of tree nodes
+    //map<int,int>::iterator and map<int, int>::const_iterator
+    //TODO: Ask about this, why auto?
+    for (auto it = freqTable.begin(); it != freqTable.end(); ++it) {
+        Node = new HuffmanNode(it->first, it->second);
+        HuffmanNode insertNode = *Node;
+        prioQueue.push(insertNode);
+    }
+
+    HuffmanNode *parentNode; //parent that will be built
+    HuffmanNode leftNode; //first in prioQueue
+    HuffmanNode rightNode; //second in prioQueue
+    HuffmanNode *pointer; //temp
+
+	while(!(prioQueue.size() == 1)) {
+        leftNode = prioQueue.top();
+		prioQueue.pop();
+        rightNode = prioQueue.top();
+		prioQueue.pop();
+
+		// Create a new node
+		// Count is the combined frequency of the two nodes, firstNode is the left and secondNode the right child
+        parentNode = new HuffmanNode(NOT_A_CHAR, (leftNode.count + rightNode.count), nullptr, nullptr); //building of parent
+        pointer = new HuffmanNode(leftNode.character, leftNode.count, leftNode.zero, leftNode.one);
+        parentNode->zero = pointer;
+        pointer = new HuffmanNode(rightNode.character, rightNode.count, rightNode.zero, rightNode.one);
+        parentNode->one = pointer;
+
+        HuffmanNode insertNode = *parentNode;
+        prioQueue.push(insertNode);
 	}
 
-	// build tree
-
-    return nullptr;
+    return parentNode; //root after all insertions and re-linkings have been done
 }
 
+/*
+ * Builds our encoding map, duh. Uses recursion to traverse the entire tree.
+ */
 map<int, string> buildEncodingMap(HuffmanNode* encodingTree) {
-    // TODO: implement this function
+
     map<int, string> encodingMap;
+    string path = "";
+    traverseTree(encodingMap, encodingTree, path);
     return encodingMap;
+}
+
+/*
+ * Used to find all characters in a given tree, recursive calls to next node until the entire tree has been traversed
+ */
+void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, string path){
+
+    if (currentNode == nullptr) return; //trivia: root has no number 0 or 1
+    if (currentNode->isLeaf()){
+        encodingMap.insert(make_pair(currentNode->character, path)); //put the char with the path needed to get there
+        return;
+    }else{
+        traverseTree(encodingMap, currentNode->zero, path + "0"); //go left
+        traverseTree(encodingMap, currentNode->one, path + "1"); //go right
+    }
 }
 
 void encodeData(istream& input, const map<int, string> &encodingMap, obitstream& output) {
