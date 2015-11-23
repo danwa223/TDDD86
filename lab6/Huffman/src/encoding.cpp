@@ -29,10 +29,10 @@ map<int, int> buildFrequencyTable(istream& input) {
 
 HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
 
-	map<int, int>::iterator it;
+    map<int, int>::iterator it;
 	priority_queue<HuffmanNode> prioQueue;
 
-	for (it = freqTable.begin(); it != freqTable.end(); ++it) {
+    for (it = freqTable.begin(); it != freqTable.end(); ++it) {
 		prioQueue.push(HuffmanNode(it->first, it->second));
 	}
 
