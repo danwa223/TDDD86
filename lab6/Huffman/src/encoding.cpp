@@ -1,14 +1,28 @@
-// This is the CPP file you will edit and turn in.
-// Also remove these comments here and add your own, along with
-// comments on every function and on complex code sections.
-// TODO: remove this comment header
-
 #include "encoding.h"
-// TODO: include any other headers you need
 
 map<int, int> buildFrequencyTable(istream& input) {
-    // TODO: implement this function
-    map<int, int> freqTable;
+	cout << "asdf";
+
+	map<int, int> freqTable;
+	map<int, int>::iterator it;
+
+	int inChar;
+
+	// Keep reading characters from input untill we reach end of file (-1)
+	while(inChar != -1) {
+		inChar = input.get();
+
+		// Insert new characters into freqTable, otherwise increment frequency counter
+		if((it = freqTable.find(inChar)) != freqTable.end()) {
+			it->second++;
+		} else {
+			freqTable.insert(make_pair(inChar, 1));
+		}
+	}
+
+	// End Of File
+	freqTable.insert(make_pair(PSEUDO_EOF, 1));
+
     return freqTable;
 }
 
