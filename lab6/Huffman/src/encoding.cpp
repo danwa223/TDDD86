@@ -3,6 +3,7 @@
 #include <queue>
 
 void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, string path); //should be in .h file but we only turn in this one!
+bool findInTree(HuffmanNode *currentNode, string character);
 
 map<int, int> buildFrequencyTable(istream& input) {
 
@@ -128,31 +129,34 @@ void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
 		while(!found) {
 
 			// Check if character is in tree
-			if(character) {
+			if(findInTree(encodingTree, character)) {
 				found = true;
 			} else {
-				character.append(bit);
+				character.append(to_string(bit));
 			}
 		}
 		found = false;
 
-		// Write to output stream
-		output.put(bit);
+		// Write character to output stream
+		int byte;
+		istringbitstream(character) >> byte;
+		output.put(byte);
 	}
 }
 
 /*
- * Used to find all characters in a given tree, recursive calls to next node until the entire tree has been traversed
+ * Used to check if a given character is in the tree
  */
-void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, string path){
+bool findInTree(HuffmanNode *currentNode, string character){
 
-	if (currentNode == nullptr) return; //trivia: root has no number 0 or 1
+	if (currentNode == nullptr) return false;
 	if (currentNode->isLeaf()){
-
-		return;
-	}else{
-		traverseTree(encodingMap, currentNode->zero, path + "0"); //go left
-		traverseTree(encodingMap, currentNode->one, path + "1"); //go right
+		if(to_string(currentNode->character) == character) {
+			return true;
+		}
+	} else {
+		findInTree(currentNode->zero, character); //go left
+		findInTree(currentNode->one, character); //go right
 	}
 }
 
