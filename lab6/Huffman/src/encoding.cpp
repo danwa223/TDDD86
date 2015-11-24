@@ -188,9 +188,9 @@ map<int, int> decompressFreqTable(ibitstream &input){
 
         // get ascii representation
         while(byte != (int)':'){
-            //stringChar = (char)byte; //string rep of char rep that originates from ascii rep DEBUG
-            //value += stoi(stringChar); //add value of string
-            value += byte;
+            stringChar = (char)byte; //string rep of char rep that originates from ascii rep DEBUG
+            value += stoi(stringChar); //add value of string
+            //value += byte;
             byte = input.get();
         }
         // skips the ":"
@@ -198,13 +198,17 @@ map<int, int> decompressFreqTable(ibitstream &input){
 
         // get key (amount of occurance)
         while(byte != (int)',' && byte!=(int)'}'){
-            //stringChar = (char)byte; //string rep of char rep that originates from count DEBUG
-            //key += stoi(stringChar); //add value of string
-            key += byte;
+            stringChar = (char)byte; //string rep of char rep that originates from count DEBUG
+            key += stoi(stringChar); //add value of string
+            //key += byte;
             byte = input.get();
         }
         // insert in freqTable
         freqTable.insert(make_pair(value, key));
+
+    }
+    for (auto it = freqTable.begin(); it != freqTable.end(); ++it) {
+        cout << "key: " << it->first << "value: " << it-> second << endl;
     }
     return freqTable;
 }
