@@ -156,7 +156,7 @@ void test_buildEncodingTree(map<int, int> &freqTable, HuffmanNode*& encodingTree
         cout << "Can't build tree; character frequency table is empty or uninitialized." << endl;
     } else {
         cout << "Building encoding tree ..." << endl;
-        encodingTree = buildEncodingTree(freqTable);
+		encodingTree = buildEncodingTree(freqTable);
         printSideways(encodingTree, SHOW_TREE_ADDRESSES);
     }
 }

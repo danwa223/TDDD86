@@ -3,6 +3,7 @@
 #include <queue>
 
 void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, string path); //should be in .h file but we only turn in this one!
+bool findInTree(HuffmanNode *currentNode, string character);
 
 map<int, int> buildFrequencyTable(istream& input) {
 
@@ -11,7 +12,7 @@ map<int, int> buildFrequencyTable(istream& input) {
 
 	int inChar;
 
-	// Keep reading characters from input untill we reach end of file (-1)
+	// Keep reading characters from input untill we reach End Of File (-1)
 	while(inChar != -1) {
 		inChar = input.get();
 
@@ -49,7 +50,7 @@ HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
     HuffmanNode *pointer; //temp
 
 	while(!(prioQueue.size() == 1)) {
-        leftNode = prioQueue.top();
+		leftNode = prioQueue.top();
 		prioQueue.pop();
         rightNode = prioQueue.top();
 		prioQueue.pop();
@@ -115,7 +116,48 @@ void encodeData(istream& input, const map<int, string> &encodingMap, obitstream&
 }
 
 void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
-    // TODO: implement this function
+
+	int bit = 0;
+	bool found = false;
+	string character = "";
+
+	// Keep going until End Of File (-1)
+	while(!(bit == -1)) {
+		bit = input.readBit();
+
+		// Keep going until we find a character
+		while(!found) {
+
+			// Check if character is in tree
+			if(findInTree(encodingTree, character)) {
+				found = true;
+			} else {
+				character.append(to_string(bit));
+			}
+		}
+		found = false;
+
+		// Write character to output stream
+		int byte;
+		istringbitstream(character) >> byte;
+		output.put(byte);
+	}
+}
+
+/*
+ * Used to check if a given character is in the tree
+ */
+bool findInTree(HuffmanNode *currentNode, string character){
+
+	if (currentNode == nullptr) return false;
+	if (currentNode->isLeaf()){
+		if(to_string(currentNode->character) == character) {
+			return true;
+		}
+	} else {
+		findInTree(currentNode->zero, character); //go left
+		findInTree(currentNode->one, character); //go right
+	}
 }
 
 void compress(istream& input, obitstream& output) {
