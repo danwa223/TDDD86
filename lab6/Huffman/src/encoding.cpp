@@ -109,7 +109,7 @@ void encodeData(istream& input, const map<int, string> &encodingMap, obitstream&
         }
     }
     cout << encodedPath << endl;
-    for (int i = 0; i < encodedPath.size(); i++){
+    for (unsigned int i = 0; i < encodedPath.size(); i++){
         output.writeBit(encodedPath[i] == '1');
     }
 }
