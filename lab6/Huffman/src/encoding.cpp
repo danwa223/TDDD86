@@ -213,10 +213,6 @@ void decompress(ibitstream& input, ostream& output) {
 
 void freeTree(HuffmanNode *node) {
 
-	// Debug code
-	//cout << endl << "Printing tree:" << endl;
-	//printSideways(node);
-
 	HuffmanNode *currentNode = node;
 
 	// Return if there is no tree
