@@ -96,7 +96,22 @@ void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, strin
 }
 
 void encodeData(istream& input, const map<int, string> &encodingMap, obitstream& output) {
-    // TODO: implement this function
+    int c; //actually is char
+    string encodedPath;
+    while (true){
+        //compare c to map, replace c with the string representation
+        c = input.get();
+        if (encodingMap.find(c) != encodingMap.end()){ //might be redundant
+            encodedPath += encodingMap.at(c);
+        }
+        if ((c == 256) || (c == -1)){ //EOF, ascii being dumb
+            break;
+        }
+    }
+    cout << encodedPath << endl;
+    for (int i = 0; i < encodedPath.size(); i++){
+        output.writeBit(encodedPath[i] == '1');
+    }
 }
 
 void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
