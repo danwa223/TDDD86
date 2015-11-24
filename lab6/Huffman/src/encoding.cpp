@@ -3,7 +3,6 @@
 #include <queue>
 
 void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, string path); //should be in .h file but we only turn in this one!
-bool findInTree(HuffmanNode *currentNode, string character);
 
 map<int, int> buildFrequencyTable(istream& input) {
 
@@ -124,7 +123,6 @@ void encodeData(istream& input, const map<int, string> &encodingMap, obitstream&
 void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
 
     int bit;
-    string debugCode;
     HuffmanNode *currentNode = encodingTree;
 
     while(true) {
@@ -144,11 +142,76 @@ void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
 }
 
 void compress(istream& input, obitstream& output) {
-    // TODO: implement this function
+
+    map<int, int> freqTable = buildFrequencyTable(input);
+    HuffmanNode *encodingTree = buildEncodingTree(freqTable);
+    map<int, string> encodingMap = buildEncodingMap(encodingTree);
+
+    string header = "{";
+    for(map<int,int>::const_iterator it = freqTable.begin(); it != freqTable.end(); ++it){
+        header.append(to_string(it->first)+":"+to_string(it->second)+", ");
+    }
+    header = header.substr(0,header.size()-2); //remove last ",' '"
+    header.append("}");
+    //cout << header << endl; debug
+
+    //save the entire header in the output for decompression later
+    for(unsigned int i = 0;i<header.size(); i++){
+        output<<header[i];
+    }
+
+    // Rewind input for encodeData()
+    input.clear();
+    input.seekg(0, ios::beg);
+
+    encodeData(input, encodingMap, output);
+}
+map<int, int> decompressFreqTable(ibitstream &input){
+
+    map<int, int> freqTable;
+    int key, value;
+    string stringChar;
+
+    // remove first {
+    int byte = input.get();
+
+    while(byte != (int)'}'){ //keep looping until end of header
+
+        // reset values
+        key = 0;
+        value = 0;
+        byte = input.get();
+
+        // remove space
+        if(byte == (int)' ') byte = input.get();
+
+        // get ascii representation
+        while(byte != (int)':'){
+            //stringChar = (char)byte; //string rep of char rep that originates from ascii rep DEBUG
+            //value += stoi(stringChar); //add value of string
+            value += byte;
+            byte = input.get();
+        }
+        // skips the ":"
+        byte = input.get();
+
+        // get key (amount of occurance)
+        while(byte != (int)',' && byte!=(int)'}'){
+            //stringChar = (char)byte; //string rep of char rep that originates from count DEBUG
+            //key += stoi(stringChar); //add value of string
+            key += byte;
+            byte = input.get();
+        }
+        // insert in freqTable
+        freqTable.insert(make_pair(value, key));
+    }
+    return freqTable;
 }
 
 void decompress(ibitstream& input, ostream& output) {
-    // TODO: implement this function
+    map<int, int> freqTable = decompressFreqTable(input);
+    HuffmanNode *encodingTree = buildEncodingTree(freqTable);
+    decodeData(input, encodingTree, output);
 }
 
 void freeTree(HuffmanNode* node) {
