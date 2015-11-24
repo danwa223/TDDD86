@@ -96,6 +96,9 @@ void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, strin
     }
 }
 
+/*
+ * Puts every (int)character in the map as an encoded path.
+ */
 void encodeData(istream& input, const map<int, string> &encodingMap, obitstream& output) {
     int c; //actually is char
     string encodedPath;
@@ -109,24 +112,20 @@ void encodeData(istream& input, const map<int, string> &encodingMap, obitstream&
             break;
         }
     }
-    cout << encodedPath << endl;
+    //cout << encodedPath << endl; debug
     for (unsigned int i = 0; i < encodedPath.size(); i++){
         output.writeBit(encodedPath[i] == '1');
     }
 }
 
+/*
+ * Decodes data given bit input (so if you are using the terminal, give it 0s and 1s you dipshit)
+ */
 void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
 
     int bit;
     string debugCode;
     HuffmanNode *currentNode = encodingTree;
-
-    while(true){
-        bit = input.readBit();
-        debugCode += to_string(bit);
-        if (bit == -1) break;
-    }
-    cout << debugCode << endl;
 
     while(true) {
         bit = input.readBit();
