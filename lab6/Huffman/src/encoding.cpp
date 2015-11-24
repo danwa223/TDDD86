@@ -26,7 +26,7 @@ map<int, int> buildFrequencyTable(istream& input) {
 
 	// End Of File, currently always adding this
 	freqTable.insert(make_pair(PSEUDO_EOF, 1));
-
+    freqTable.erase(-1); //remove bogus
     return freqTable;
 }
 
@@ -117,47 +117,31 @@ void encodeData(istream& input, const map<int, string> &encodingMap, obitstream&
 
 void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
 
-	int bit = 0;
-	bool found = false;
-	string character = "";
+    int bit;
+    string debugCode;
+    HuffmanNode *currentNode = encodingTree;
 
-	// Keep going until End Of File (-1)
-	while(!(bit == -1)) {
-		bit = input.readBit();
+    while(true){
+        bit = input.readBit();
+        debugCode += to_string(bit);
+        if (bit == -1) break;
+    }
+    cout << debugCode << endl;
 
-		// Keep going until we find a character
-		while(!found) {
-
-			// Check if character is in tree
-			if(findInTree(encodingTree, character)) {
-				found = true;
-			} else {
-				character.append(to_string(bit));
-			}
-		}
-		found = false;
-
-		// Write character to output stream
-		int byte;
-		istringbitstream(character) >> byte;
-		output.put(byte);
-	}
-}
-
-/*
- * Used to check if a given character is in the tree
- */
-bool findInTree(HuffmanNode *currentNode, string character){
-
-	if (currentNode == nullptr) return false;
-	if (currentNode->isLeaf()){
-		if(to_string(currentNode->character) == character) {
-			return true;
-		}
-	} else {
-		findInTree(currentNode->zero, character); //go left
-		findInTree(currentNode->one, character); //go right
-	}
+    while(true) {
+        bit = input.readBit();
+        if ((bit == -1) || (bit == 256)){
+            break; //reached EOF
+        } else if (bit == 0){
+            currentNode = currentNode->zero; //go left
+        } else if (bit == 1){ //bit == 1
+            currentNode = currentNode->one; //go right
+        }
+        if (currentNode->isLeaf()){
+            output.put(currentNode->character); //output the char since we are in a leaf
+            currentNode = encodingTree; //reset to root
+        }
+    }
 }
 
 void compress(istream& input, obitstream& output) {
