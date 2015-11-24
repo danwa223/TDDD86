@@ -33,41 +33,37 @@ map<int, int> buildFrequencyTable(istream& input) {
 HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
 
 	priority_queue<HuffmanNode> prioQueue;
-    HuffmanNode *Node;
 
 	// Use the frequency table to build a priority queue of tree nodes
-    //map<int,int>::iterator and map<int, int>::const_iterator
-    //TODO: Ask about this, why auto?
     for (auto it = freqTable.begin(); it != freqTable.end(); ++it) {
-		Node = new HuffmanNode(it->first, it->second);
-        HuffmanNode insertNode = *Node;
-        prioQueue.push(insertNode);
+		prioQueue.push(HuffmanNode(it->first, it->second));
     }
 
-    HuffmanNode *parentNode; //parent that will be built
-    HuffmanNode leftNode; //first in prioQueue
-    HuffmanNode rightNode; //second in prioQueue
-    HuffmanNode *pointer; //temp
+	HuffmanNode *parentNode;
+	HuffmanNode leftNode; // First node poped from  prioQueue
+	HuffmanNode rightNode; // Second node poped from prioQueue
 
+	// Run until there's only one node left in the priority queue
 	while(!(prioQueue.size() == 1)) {
+
+		// Pop the two first nodes from the priority queue
 		leftNode = prioQueue.top();
 		prioQueue.pop();
         rightNode = prioQueue.top();
 		prioQueue.pop();
 
-		// Create a new node
-		// Count is the combined frequency of the two nodes, firstNode is the left and secondNode the right child
-        parentNode = new HuffmanNode(NOT_A_CHAR, (leftNode.count + rightNode.count), nullptr, nullptr); //building of parent
-        pointer = new HuffmanNode(leftNode.character, leftNode.count, leftNode.zero, leftNode.one);
-        parentNode->zero = pointer;
-        pointer = new HuffmanNode(rightNode.character, rightNode.count, rightNode.zero, rightNode.one);
-        parentNode->one = pointer;
+		// Combining the two nodes into a tree with a shared root, count is the combined frequency of the two nodes
+		parentNode = new HuffmanNode(NOT_A_CHAR, (leftNode.count + rightNode.count));
 
-        HuffmanNode insertNode = *parentNode;
-        prioQueue.push(insertNode);
+		// Building the children
+		parentNode->zero = new HuffmanNode(leftNode.character, leftNode.count, leftNode.zero, leftNode.one);
+		parentNode->one = new HuffmanNode(rightNode.character, rightNode.count, rightNode.zero, rightNode.one);
+
+		prioQueue.push(*parentNode);
 	}
 
-    return parentNode; //root after all insertions and re-linkings have been done
+	// Returning root of the new encoding tree
+	return parentNode;
 }
 
 /*
