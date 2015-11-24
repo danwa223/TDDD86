@@ -15,6 +15,7 @@ map<int, int> buildFrequencyTable(istream& input) {
 	// Keep reading characters from input untill we reach End Of File (-1)
 	while(inChar != -1) {
 		inChar = input.get();
+		if (inChar == -1) break;
 
 		// Insert new characters into freqTable, otherwise increment frequency counter
 		if((it = freqTable.find(inChar)) != freqTable.end()) {
@@ -130,6 +131,7 @@ void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
 
 			// Check if character is in tree
 			if(findInTree(encodingTree, character)) {
+				cout << "RETURNED TRUE FROM FINDINTREE" << endl;
 				found = true;
 			} else {
 				character.append(to_string(bit));
@@ -152,6 +154,7 @@ bool findInTree(HuffmanNode *currentNode, string character){
 	if (currentNode == nullptr) return false;
 	if (currentNode->isLeaf()){
 		if(to_string(currentNode->character) == character) {
+			cout << "CurrentNode->character: " << currentNode->character << endl;
 			return true;
 		}
 	} else {
