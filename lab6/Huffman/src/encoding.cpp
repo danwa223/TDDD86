@@ -127,5 +127,5 @@ void decompress(ibitstream& input, ostream& output) {
 }
 
 void freeTree(HuffmanNode* node) {
-
+	// traverse tree
 }
