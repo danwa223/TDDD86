@@ -27,7 +27,6 @@ map<int, int> buildFrequencyTable(istream& input) {
 
 	// End Of File, currently always adding this
 	freqTable.insert(make_pair(PSEUDO_EOF, 1));
-
     return freqTable;
 }
 
@@ -97,6 +96,9 @@ void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, strin
     }
 }
 
+/*
+ * Puts every (int)character in the map as an encoded path.
+ */
 void encodeData(istream& input, const map<int, string> &encodingMap, obitstream& output) {
     int c; //actually is char
     string encodedPath;
@@ -110,57 +112,10 @@ void encodeData(istream& input, const map<int, string> &encodingMap, obitstream&
             break;
         }
     }
-    cout << encodedPath << endl;
-    for (int i = 0; i < encodedPath.size(); i++){
+    //cout << encodedPath << endl; debug
+    for (unsigned int i = 0; i < encodedPath.size(); i++){
         output.writeBit(encodedPath[i] == '1');
     }
-}
-
-void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
-
-	int bit = 0;
-	bool found = false;
-	string character = "";
-
-	// Keep going until End Of File (-1)
-	while(!(bit == -1)) {
-		bit = input.readBit();
-
-		// Keep going until we find a character
-		while(!found) {
-
-			// Check if character is in tree
-			if(findInTree(encodingTree, character)) {
-				cout << "RETURNED TRUE FROM FINDINTREE" << endl;
-				found = true;
-			} else {
-				character.append(to_string(bit));
-			}
-		}
-		found = false;
-
-		// Write character to output stream
-		int byte;
-		istringbitstream(character) >> byte;
-		output.put(byte);
-	}
-}
-
-/*
- * Used to check if a given character is in the tree
- */
-bool findInTree(HuffmanNode *currentNode, string character){
-
-	if (currentNode == nullptr) return false;
-	if (currentNode->isLeaf()){
-		if(to_string(currentNode->character) == character) {
-			cout << "CurrentNode->character: " << currentNode->character << endl;
-			return true;
-		}
-	} else {
-		findInTree(currentNode->zero, character); //go left
-		findInTree(currentNode->one, character); //go right
-	}
 }
 
 void compress(istream& input, obitstream& output) {
@@ -172,5 +127,5 @@ void decompress(ibitstream& input, ostream& output) {
 }
 
 void freeTree(HuffmanNode* node) {
-    // TODO: implement this function
+
 }
