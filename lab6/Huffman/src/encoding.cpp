@@ -14,6 +14,7 @@ map<int, int> buildFrequencyTable(istream& input) {
 	// Keep reading characters from input untill we reach End Of File (-1)
 	while(inChar != -1) {
 		inChar = input.get();
+		if (inChar == -1) break;
 
 		// Insert new characters into freqTable, otherwise increment frequency counter
 		if((it = freqTable.find(inChar)) != freqTable.end()) {
@@ -25,7 +26,6 @@ map<int, int> buildFrequencyTable(istream& input) {
 
 	// End Of File, currently always adding this
 	freqTable.insert(make_pair(PSEUDO_EOF, 1));
-    freqTable.erase(-1); //remove bogus
     return freqTable;
 }
 
@@ -38,7 +38,7 @@ HuffmanNode* buildEncodingTree(const map<int, int> &freqTable) {
     //map<int,int>::iterator and map<int, int>::const_iterator
     //TODO: Ask about this, why auto?
     for (auto it = freqTable.begin(); it != freqTable.end(); ++it) {
-        Node = new HuffmanNode(it->first, it->second);
+		Node = new HuffmanNode(it->first, it->second);
         HuffmanNode insertNode = *Node;
         prioQueue.push(insertNode);
     }
@@ -121,6 +121,7 @@ void encodeData(istream& input, const map<int, string> &encodingMap, obitstream&
  * Decodes data given bit input (so if you are using the terminal, give it 0s and 1s you dipshit)
  */
 void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
+
 
     int bit;
     HuffmanNode *currentNode = encodingTree;
@@ -214,6 +215,29 @@ void decompress(ibitstream& input, ostream& output) {
     decodeData(input, encodingTree, output);
 }
 
-void freeTree(HuffmanNode* node) {
-    // TODO: implement this function
+void freeTree(HuffmanNode *node) {
+
+	// Debug code
+	//cout << endl << "Printing tree:" << endl;
+	//printSideways(node);
+
+	HuffmanNode *currentNode = node;
+
+	// Return if there is no tree
+	if (currentNode == nullptr) return;
+
+	// If we're a leaf, delete ourselves
+	if (currentNode->isLeaf()) {
+		delete currentNode;
+		return;
+	}  else {
+
+		// Visit the left node, once we return cut the pointer
+		freeTree(currentNode->zero);
+		currentNode->zero = nullptr;
+
+		// Visit the right node, once we return cut the pointer
+		freeTree(currentNode->one);
+		currentNode->one = nullptr;
+	}
 }
