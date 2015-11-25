@@ -214,6 +214,7 @@ void decompress(ibitstream& input, ostream& output) {
     map<int, int> freqTable = decompressFreqTable(input);
     HuffmanNode *encodingTree = buildEncodingTree(freqTable);
     decodeData(input, encodingTree, output);
+    freeTree(encodingTree);
 }
 
 void freeTree(HuffmanNode *node) {
