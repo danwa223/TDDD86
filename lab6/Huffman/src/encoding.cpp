@@ -204,9 +204,6 @@ map<int, int> decompressFreqTable(ibitstream &input){
         freqTable.insert(make_pair(value, key));
 
     }
-    /*for (auto it = freqTable.begin(); it != freqTable.end(); ++it) {
-        cout << "key: " << it->first << "value: " << it-> second << endl;
-    }*/
     return freqTable;
 }
 
