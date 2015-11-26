@@ -14,7 +14,7 @@ map<int, int> buildFrequencyTable(istream& input) {
 	// Keep reading characters from input untill we reach End Of File (-1)
 	while(inChar != -1) {
 		inChar = input.get();
-		if (inChar == -1) break;
+		if (inChar == -1) break;  // Kinda makes (inChar != -1) redundant
 
 		// Insert new characters into freqTable, otherwise increment frequency counter
 		if((it = freqTable.find(inChar)) != freqTable.end()) {
@@ -95,29 +95,34 @@ void traverseTree(map<int, string> &encodingMap, HuffmanNode *currentNode, strin
  * Puts every (int)character in the map as an encoded path.
  */
 void encodeData(istream& input, const map<int, string> &encodingMap, obitstream& output) {
+
     int c; //actually is char
     string encodedPath;
+
     while (true){
         //compare c to map, replace c with the string representation
         c = input.get();
-        if (encodingMap.find(c) != encodingMap.end()){ //might be redundant
-            encodedPath += encodingMap.at(c);
-        }
+
+		// Without these check we go out of bounds
+		if (encodingMap.find(c) != encodingMap.end()) {
+			encodedPath += encodingMap.at(c);
+		}
+
         if ((c == 256) || (c == -1)){ //EOF, ascii being dumb
             break;
         }
-    }
-    //cout << encodedPath << endl; debug
+	}
+
     for (unsigned int i = 0; i < encodedPath.size(); i++){
-        output.writeBit(encodedPath[i] == '1');
+		output.writeBit(encodedPath[i] == '1');  // If encodePath[i] is a '1', the comparision will return a constant int
+												 // Workaround for conversion errors
     }
 }
 
 /*
- * Decodes data given bit input (so if you are using the terminal, give it 0s and 1s you dipshit)
+ * Decodes data given bit input (so if you are using the terminal, give it 0s and 1s)
  */
 void decodeData(ibitstream& input, HuffmanNode* encodingTree, ostream& output) {
-
 
     int bit;
     HuffmanNode *currentNode = encodingTree;
@@ -149,8 +154,7 @@ void compress(istream& input, obitstream& output) {
         header.append(to_string(it->first)+":"+to_string(it->second)+", ");
     }
     header = header.substr(0,header.size()-2); //remove last ",' '"
-    header.append("}");
-    //cout << header << endl; debug
+	header.append("}");
 
     //save the entire header in the output for decompression later
     for(unsigned int i = 0;i<header.size(); i++){
@@ -162,7 +166,9 @@ void compress(istream& input, obitstream& output) {
     input.seekg(0, ios::beg);
 
     encodeData(input, encodingMap, output);
+	freeTree(encodingTree);
 }
+
 map<int, int> decompressFreqTable(ibitstream &input){
 
     map<int, int> freqTable;
@@ -202,12 +208,13 @@ map<int, int> decompressFreqTable(ibitstream &input){
         }
         // insert in freqTable
         freqTable.insert(make_pair(value, key));
+	}
 
-    }
     return freqTable;
 }
 
 void decompress(ibitstream& input, ostream& output) {
+
     map<int, int> freqTable = decompressFreqTable(input);
     HuffmanNode *encodingTree = buildEncodingTree(freqTable);
     decodeData(input, encodingTree, output);
@@ -234,5 +241,6 @@ void freeTree(HuffmanNode *node) {
 		// Visit the right node, once we return cut the pointer
 		freeTree(currentNode->one);
 		currentNode->one = nullptr;
+        delete currentNode;
 	}
 }
