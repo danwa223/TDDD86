@@ -242,5 +242,6 @@ void freeTree(HuffmanNode *node) {
 		// Visit the right node, once we return cut the pointer
 		freeTree(currentNode->one);
 		currentNode->one = nullptr;
+		delete currentNode;
 	}
 }
