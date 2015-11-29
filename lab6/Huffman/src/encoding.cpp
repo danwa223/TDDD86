@@ -208,7 +208,6 @@ map<int, int> decompressFreqTable(ibitstream &input){
         }
         // insert in freqTable
         freqTable.insert(make_pair(value, key));
-
 	}
 
     return freqTable;
