@@ -4,6 +4,9 @@
 
 using namespace std;
 
+bool depthFirstSearchRecursive(BasicGraph& graph, Vertex* start, Vertex* end, vector<Vertex*>& path);
+
+
 bool depthFirstSearchRecursive(BasicGraph& graph, Vertex* currentNode, Vertex* end, vector<Vertex*>& path) {
 
 	currentNode->visited = true;

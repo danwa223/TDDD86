@@ -15,7 +15,7 @@
 #include <vector>
 #include "BasicGraph.h"
 
-bool depthFirstSearchRecursive(BasicGraph& graph, Vertex* start, Vertex* end, vector<Vertex*>& path);
+//bool depthFirstSearchRecursive(BasicGraph& graph, Vertex* start, Vertex* end, vector<Vertex*>& path);
 vector<Node*> depthFirstSearch(BasicGraph& graph, Node* start, Node* end);
 vector<Node*> breadthFirstSearch(BasicGraph& graph, Node* start, Node* end);
 vector<Node*> dijkstrasAlgorithm(BasicGraph& graph, Node* start, Node* end);
