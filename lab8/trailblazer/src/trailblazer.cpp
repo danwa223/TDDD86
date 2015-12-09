@@ -48,7 +48,7 @@ vector<Node *> depthFirstSearch(BasicGraph& graph, Vertex* start, Vertex* end) {
     return path;
 }
 
-vector<Node *> pathBuildBfs(Vertex* start, Vertex* end){
+vector<Node *> pathBuilderToStart(Vertex* start, Vertex* end){
     //iterate back to start
     vector<Vertex*> path;
     Vertex* cur = end; //initiate with the end
@@ -72,7 +72,7 @@ vector<Node *> breadthFirstSearch(BasicGraph& graph, Vertex* start, Vertex* end)
         position->visited = true;
         position->setColor(GREEN);
         if (position == end){
-            return pathBuildBfs(start, position); //builds the entire path here
+            return pathBuilderToStart(start, position); //builds the entire path here
         }else{
             for (Node *next : graph.getNeighbors(position)){ //for all neighbours of current element, see lab doc
                 if (!next->visited){
@@ -88,21 +88,72 @@ vector<Node *> breadthFirstSearch(BasicGraph& graph, Vertex* start, Vertex* end)
 }
 
 vector<Node *> dijkstrasAlgorithm(BasicGraph& graph, Vertex* start, Vertex* end) {
-    // TODO: implement this function; remove these comments
-    //       (The function body code provided below is just a stub that returns
-    //        an empty vector so that the overall project will compile.
-    //        You should remove that code and replace it with your implementation.)
 	graph.resetData();
     vector<Vertex*> path;
+    for (Vertex* node : graph.getNodeSet()){ //initiate all nodes with an inf. cost
+        node->cost = INFINITY;
+    }
+    PriorityQueue<Vertex*> pQueue;
+    start->cost = 0;
+    pQueue.enqueue(start, start->cost); //start of search
+
+    while (!pQueue.isEmpty()){
+        Vertex* v = pQueue.dequeue();
+        v->visited = true;
+        v->setColor(GREEN);
+        if (v == end){
+            return pathBuilderToStart(start, v); //same as the one bfs uses
+        }else{
+            for(Arc* edge : graph.getEdgeSet(v)){ //Go through each edge from the Vertex v, counting the cost for each newly visited vertex
+                Vertex* next = edge->finish;
+                if (!next->visited){
+                    double cost = v->cost + edge->cost;
+                    if (cost < next->cost){ //found a lesser cost, what dijkstra is all about
+                        next->setColor(YELLOW);
+                        next->cost = cost;
+                        next->previous = v;
+                        pQueue.enqueue(next, cost);
+                        //pQueue.changePriority(next, cost); Only do this if next already is in the queue, but this should not ever occur?
+                    }
+                }
+            }
+        }
+    }
     return path;
 }
 
 vector<Node *> aStar(BasicGraph& graph, Vertex* start, Vertex* end) {
-    // TODO: implement this function; remove these comments
-    //       (The function body code provided below is just a stub that returns
-    //        an empty vector so that the overall project will compile.
-    //        You should remove that code and replace it with your implementation.)
+    //works the same way as dijkstra, the only change is that it uses a heuristic to calculate the vertex cost.
 	graph.resetData();
     vector<Vertex*> path;
+    for (Vertex* node : graph.getNodeSet()){ //initiate all nodes with an inf. cost
+        node->cost = INFINITY;
+    }
+    PriorityQueue<Vertex*> pQueue;
+    start->cost = 0;
+    pQueue.enqueue(start, start->heuristic(end)); //start of search
+
+    while (!pQueue.isEmpty()){
+        Vertex* v = pQueue.dequeue();
+        v->visited = true;
+        v->setColor(GREEN);
+        if (v == end){
+            return pathBuilderToStart(start, v); //same as the one bfs uses
+        }else{
+            for(Arc* edge : graph.getEdgeSet(v)){ //Go through each edge from the Vertex v, counting the cost for each newly visited vertex
+                Vertex* next = edge->finish;
+                if (!next->visited){
+                    double cost = v->cost + edge->cost;
+                    if (cost < next->cost){ //found a lesser cost
+                        next->setColor(YELLOW);
+                        next->cost = cost;
+                        next->previous = v;
+                        pQueue.enqueue(next, cost + next->heuristic(end));
+                        //pQueue.changePriority(next, cost + next->heuristic(end)); Only do this if next already is in the queue, but this should not ever occur?
+                    }
+                }
+            }
+        }
+    }
     return path;
 }
